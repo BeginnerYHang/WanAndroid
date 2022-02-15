@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">wanandroid</string>
+    <string name="username">用户名:</string>
+    <string name="password">密&#160;&#160;&#8201;&#160;码:</string>
+    <string name="username_hint">请输入您的用户名</string>
+    <string name="password_hint">请输入您的密码</string>
+</resources>
