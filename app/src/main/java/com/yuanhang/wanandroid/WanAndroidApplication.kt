@@ -1,6 +1,7 @@
 package com.yuanhang.wanandroid
 
 import android.app.Application
+import android.content.Context
 import com.yuanhang.wanandroid.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -23,5 +24,10 @@ class WanAndroidApplication: Application(), HasAndroidInjector {
     override fun onCreate() {
         super.onCreate()
         DaggerAppComponent.builder().application(this).build().inject(this)
+        appContext = applicationContext
+    }
+
+    companion object {
+        lateinit var appContext: Context
     }
 }

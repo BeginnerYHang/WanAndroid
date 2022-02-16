@@ -17,8 +17,9 @@ class LoginViewModel @Inject constructor(private val mApi: ApiService): BaseView
     fun login(username: String, password: String) = MutableLiveData<Resource<LoginInfo>>().apply {
         value = Resource.loading()
         mUiScope.launch {
+            val responseData = mApi.login(username, password)
             value = try {
-                Resource.success(mApi.login(username, password).data)
+                Resource.success(responseData.data, responseData.errorMsg)
             } catch (e: Exception) {
                 Resource.error(e.message ?: "")
             }

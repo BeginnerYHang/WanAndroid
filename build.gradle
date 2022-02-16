@@ -23,4 +23,5 @@ ext {
     retrofitVersion = "2.9.0"
     glideVersion = "4.13.0"
     moshiVersion = "1.13.0"
+    qmuiVersion = "2.0.0-alpha10"
 }

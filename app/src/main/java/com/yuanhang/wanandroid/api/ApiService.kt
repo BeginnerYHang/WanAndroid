@@ -1,7 +1,7 @@
 package com.yuanhang.wanandroid.api
 
-import com.yuanhang.wanandroid.model.AllUserInfo
 import com.yuanhang.wanandroid.model.LoginInfo
+import com.yuanhang.wanandroid.model.UserInfo
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -21,5 +21,5 @@ interface ApiService {
     ): JsonResponse<LoginInfo>
 
     @GET("/user/lg/userinfo/json")
-    suspend fun getUserInfo():  JsonResponse<AllUserInfo>
+    suspend fun getUserInfo():  JsonResponse<UserInfo>
 }

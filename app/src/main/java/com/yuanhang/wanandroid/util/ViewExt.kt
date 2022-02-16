@@ -8,12 +8,30 @@ import android.view.View
  * description:
  */
 fun View.onClick(debounceInterval: Int = 300, action: (View) -> Unit) {
-    val listener = object: OnDebouncedClickListener(debounceInterval) {
+    val listener = object : OnDebouncedClickListener(debounceInterval) {
         override fun onViewClick(v: View) {
             action.invoke(v)
         }
     }
     setOnClickListener(listener)
+}
+
+fun View.gone() {
+    if (visibility != View.GONE) {
+        visibility = View.GONE
+    }
+}
+
+fun View.visible() {
+    if (visibility != View.VISIBLE) {
+        visibility = View.VISIBLE
+    }
+}
+
+fun View.inVisible() {
+    if (visibility != View.INVISIBLE) {
+        visibility = View.INVISIBLE
+    }
 }
 
 abstract class OnDebouncedClickListener(private val interval: Int) : View.OnClickListener {

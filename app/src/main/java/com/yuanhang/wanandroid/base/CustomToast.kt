@@ -7,5 +7,5 @@ import androidx.annotation.DrawableRes
  * description:
  */
 interface CustomToast {
-    fun show(message: String, @DrawableRes iconId: Int? = null, )
+    fun show(message: String, @DrawableRes iconId: Int? = null, duration: Int)
 }

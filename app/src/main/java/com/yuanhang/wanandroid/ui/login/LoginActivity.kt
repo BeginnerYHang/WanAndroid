@@ -1,11 +1,18 @@
 package com.yuanhang.wanandroid.ui.login
 
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import com.yuanhang.wanandroid.MainActivity
 import com.yuanhang.wanandroid.R
+import com.yuanhang.wanandroid.api.CommonInfoStore
 import com.yuanhang.wanandroid.api.Status
 import com.yuanhang.wanandroid.base.BaseActivity
+import com.yuanhang.wanandroid.util.SPUtils
+import com.yuanhang.wanandroid.util.gone
 import com.yuanhang.wanandroid.util.onClick
+import com.yuanhang.wanandroid.util.visible
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity() {
@@ -17,11 +24,28 @@ class LoginActivity : BaseActivity() {
         setContentView(R.layout.activity_login)
         mViewModel = ViewModelProvider(this, mViewModelFactory).get(LoginViewModel::class.java)
         btnLogin.onClick {
-            mViewModel.login("yuanhang", "123").observe(this) {
-                when(it.status) {
-                    Status.SUCCESS -> {
-                        if (it.data == null) {
-
+            val username = etUsername.text.toString()
+            val password = etPassword.text.toString()
+            if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
+                mViewModel.login(username, password).observe(this) {
+                    when(it.status) {
+                        Status.SUCCESS -> {
+                            pbLogin.gone()
+                            if (it.data == null) {
+                                //说明账户名和密码不匹配
+                                toastFail(it.message ?: "")
+                            } else {
+                                //登录成功
+                                CommonInfoStore.loginInfo = it.data
+                                MainActivity.start(this)
+                            }
+                        }
+                        Status.LOADING -> {
+                            pbLogin.visible()
+                        }
+                        Status.ERROR -> {
+                            pbLogin.gone()
+                            toastInform(it.message ?: "")
                         }
                     }
                 }
