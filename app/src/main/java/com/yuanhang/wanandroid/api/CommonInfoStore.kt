@@ -17,18 +17,18 @@ object CommonInfoStore {
     var loginInfo: LoginInfo? = null
         get() {
             if (field == null) {
-                field = jsonLoads(SPUtils.get(WanAndroidApplication.appContext, SPUtils.KEY.LOGIN_INFO, ""), LoginInfo::class.java)
+                field = jsonLoads(SPUtils.get(WanAndroidApplication.app, SPUtils.KEY.LOGIN_INFO, ""), LoginInfo::class.java)
             }
             return field
         }
         set(value) {
             field = if (value != null) {
                 jsonDumps(value)?.let { loginInfoJsonString ->
-                    SPUtils.put(WanAndroidApplication.appContext, SPUtils.KEY.LOGIN_INFO, loginInfoJsonString)
+                    SPUtils.put(WanAndroidApplication.app, SPUtils.KEY.LOGIN_INFO, loginInfoJsonString)
                 }
                 value
             } else {
-                SPUtils.put(WanAndroidApplication.appContext, SPUtils.KEY.LOGIN_INFO, "")
+                SPUtils.put(WanAndroidApplication.app, SPUtils.KEY.LOGIN_INFO, "")
                 null
             }
         }
@@ -36,7 +36,7 @@ object CommonInfoStore {
     var userInfo: MutableLiveData<UserInfo>? = null
         get() {
             if (field == null) {
-                val userInfoJsonString = SPUtils.get(WanAndroidApplication.appContext, SPUtils.KEY.USER_INFO, "")
+                val userInfoJsonString = SPUtils.get(WanAndroidApplication.app, SPUtils.KEY.USER_INFO, "")
                 field = MutableLiveData<UserInfo>().apply {
                     jsonLoads(userInfoJsonString, UserInfo::class.java)?.let {
                         postValue(it)
@@ -48,7 +48,7 @@ object CommonInfoStore {
 
     fun saveUserInfo(info: UserInfo, needNotice: Boolean = true) {
         jsonDumps(info)?.let {
-            SPUtils.put(WanAndroidApplication.appContext, SPUtils.KEY.USER_INFO, it)
+            SPUtils.put(WanAndroidApplication.app, SPUtils.KEY.USER_INFO, it)
         }
         if (needNotice) {
             userInfo?.value = info

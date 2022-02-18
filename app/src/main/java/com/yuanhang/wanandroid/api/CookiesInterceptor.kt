@@ -18,7 +18,7 @@ class SaveCookiesInterceptor: Interceptor {
             for (cookie in originalResponse.headers(COOKIE_HEADER)) {
                 hashSet.add(cookie)
             }
-            SPUtils.put(WanAndroidApplication.appContext, SPUtils.KEY.COOKIES, hashSet)
+            SPUtils.put(WanAndroidApplication.app, SPUtils.KEY.COOKIES, hashSet)
         }
         return originalResponse
     }
@@ -27,7 +27,7 @@ class SaveCookiesInterceptor: Interceptor {
 class AddCookiesInterceptor: Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestBuilder = chain.request().newBuilder()
-        val cookies = SPUtils.get(WanAndroidApplication.appContext, SPUtils.KEY.COOKIES, SPUtils.StringSet())
+        val cookies = SPUtils.get(WanAndroidApplication.app, SPUtils.KEY.COOKIES, SPUtils.StringSet())
         if (cookies.isNotEmpty()) {
             for (cookie in cookies) {
                 requestBuilder.addHeader("Cookie", cookie)

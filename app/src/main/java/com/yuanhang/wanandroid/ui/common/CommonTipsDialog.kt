@@ -40,6 +40,7 @@ class CommonTipsDialog constructor(
         btnConfirm.text = confirmText
         btnConfirm.onClick {
             onConfirm?.invoke()
+            dismiss()
         }
         if (TextUtils.isEmpty(cancelText)) {
             btnCancel.gone()
@@ -47,6 +48,7 @@ class CommonTipsDialog constructor(
             btnCancel.text = cancelText
             btnCancel.onClick {
                 onCancel?.invoke()
+                dismiss()
             }
         }
         setCancelable(isCancel)

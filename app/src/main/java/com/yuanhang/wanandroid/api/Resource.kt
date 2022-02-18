@@ -10,7 +10,7 @@ data class Resource<out T> (
     val message: String?,
     val code: Int = -1){
     companion object {
-        fun <T> success(data: T? = null, message: String? = null) = Resource<T>(Status.SUCCESS, data, message)
+        fun <T> success(data: T? = null, message: String? = null, code: Int = -1) = Resource<T>(Status.SUCCESS, data, message, code)
 
         fun <T> error(message: String, data: T? = null, code: Int = -1) = Resource<T>(Status.ERROR, data, message, code)
 

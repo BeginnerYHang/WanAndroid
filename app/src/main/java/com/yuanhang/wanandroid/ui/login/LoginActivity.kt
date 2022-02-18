@@ -1,15 +1,14 @@
 package com.yuanhang.wanandroid.ui.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
-import com.yuanhang.wanandroid.MainActivity
+import com.yuanhang.wanandroid.ui.main.MainActivity
 import com.yuanhang.wanandroid.R
 import com.yuanhang.wanandroid.api.CommonInfoStore
 import com.yuanhang.wanandroid.api.Status
 import com.yuanhang.wanandroid.base.BaseActivity
-import com.yuanhang.wanandroid.util.SPUtils
 import com.yuanhang.wanandroid.util.gone
 import com.yuanhang.wanandroid.util.onClick
 import com.yuanhang.wanandroid.util.visible
@@ -38,6 +37,7 @@ class LoginActivity : BaseActivity() {
                                 //登录成功
                                 CommonInfoStore.loginInfo = it.data
                                 MainActivity.start(this)
+                                finish()
                             }
                         }
                         Status.LOADING -> {
@@ -50,6 +50,13 @@ class LoginActivity : BaseActivity() {
                     }
                 }
             }
+        }
+    }
+
+    companion object {
+        fun start(activity: BaseActivity) {
+            val intent = Intent(activity, LoginActivity::class.java)
+            activity.startActivity(intent)
         }
     }
 }

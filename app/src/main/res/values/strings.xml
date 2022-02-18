@@ -4,6 +4,10 @@
     <string name="password">密&#160;&#160;&#8201;&#160;码:</string>
     <string name="username_hint">请输入您的用户名</string>
     <string name="password_hint">请输入您的密码</string>
+    <string name="dialog_title">提示</string>
+    <string name="logout_dialog_message">确定要退出登录吗？</string>
     <string name="dialog_confirm">确定</string>
     <string name="dialog_cancel">取消</string>
+    <string name="logout">退出登录</string>
+    <string name="home_page">首页</string>
 </resources>

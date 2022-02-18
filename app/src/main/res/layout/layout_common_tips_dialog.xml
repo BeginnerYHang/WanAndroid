@@ -57,7 +57,7 @@
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:textColor="@color/white90"
+            android:textColor="@color/color_212121"
             android:textSize="13sp"
             android:textStyle="bold"
             app:qmui_backgroundColor="#EDEFF2"

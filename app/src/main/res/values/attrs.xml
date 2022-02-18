@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ToolBarView">
+        <attr name="leftIcon" format="reference" />
+        <attr name="mediumTitle" format="string" />
+        <attr name="rightIcon" format="reference" />
+        <attr name="mediumTitleGravity" format="enum">
+            <enum name="start" value="1" />
+            <enum name="center" value="2" />
+            <enum name="end" value="3" />
+        </attr>
+    </declare-styleable>
+</resources>

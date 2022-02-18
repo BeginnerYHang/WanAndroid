@@ -37,4 +37,6 @@
     <color name="white88">#e0FFFFFF</color>
     <color name="white90">#e6ffffff</color>
     <color name="transparent_bg">#00000000</color>
+
+    <color name="color_212121">#212121</color>
 </resources>

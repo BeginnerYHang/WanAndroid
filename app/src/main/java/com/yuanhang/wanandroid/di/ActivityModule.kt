@@ -1,6 +1,6 @@
 package com.yuanhang.wanandroid.di
 
-import com.yuanhang.wanandroid.MainActivity
+import com.yuanhang.wanandroid.ui.main.MainActivity
 import com.yuanhang.wanandroid.base.BaseActivity
 import com.yuanhang.wanandroid.ui.login.LoginActivity
 import dagger.Module
