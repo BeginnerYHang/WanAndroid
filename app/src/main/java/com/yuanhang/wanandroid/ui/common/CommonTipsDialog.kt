@@ -11,7 +11,7 @@ import com.yuanhang.wanandroid.base.BaseActivity
 import com.yuanhang.wanandroid.util.getScreenWidth
 import com.yuanhang.wanandroid.util.gone
 import com.yuanhang.wanandroid.util.onClick
-import kotlinx.android.synthetic.main.layout_common_tips_dialog.*
+import kotlinx.android.synthetic.main.dialog_common_tips.*
 
 /**
  * created by yuanhang on 2022/2/16
@@ -29,7 +29,7 @@ class CommonTipsDialog constructor(
     isWarning: Boolean = false
 ) : AppCompatDialog(activity, R.style.QMUI_Dialog) {
     init {
-        setContentView(R.layout.layout_common_tips_dialog)
+        setContentView(R.layout.dialog_common_tips)
         window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, getScreenWidth(context))
         if (TextUtils.isEmpty(titleText)) {
             tvTitle.gone()

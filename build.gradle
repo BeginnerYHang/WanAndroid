@@ -25,4 +25,5 @@ ext {
     glideTransformationVersion = "4.3.0"
     moshiVersion = "1.13.0"
     qmuiVersion = "2.0.0-alpha10"
+    smartRefreshLayoutVersion = "2.0.5"
 }

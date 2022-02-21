@@ -36,7 +36,7 @@ class BannerItemAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerItemViewHolder {
         val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.layout_item_banner, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_banner, parent, false)
         val bannerItemViewHolder = BannerItemViewHolder(itemView)
         itemView.onClick {
             val adapterPosition = bannerItemViewHolder.adapterPosition
@@ -52,7 +52,7 @@ class BannerItemAdapter(
 
     override fun getItemCount(): Int = bannerItemList.size
 
-    fun submitData(newBannerItem: List<BannerItem>) {
+    fun setData(newBannerItem: List<BannerItem>) {
         bannerItemList.clear()
         bannerItemList.addAll(newBannerItem)
         notifyItemRangeChanged(0, newBannerItem.size)

@@ -16,17 +16,17 @@ import com.yuanhang.wanandroid.util.gone
  * created by yuanhang on 2022/2/15
  * description:
  */
-class CustomToastImpl(private val mContext: Context): CustomToast {
+class CustomToastImpl(private val mContext: Context) : CustomToast {
     override fun show(message: String, iconId: Int?, duration: Int) {
         if (TextUtils.isEmpty(message)) {
             return
         }
         TOAST_MAP[message]?.let {
-            if(SystemClock.elapsedRealtime() - it < 2000) {
+            if (SystemClock.elapsedRealtime() - it < 2000) {
                 return
             }
         }
-        val customToastView = LayoutInflater.from(mContext).inflate(R.layout.layout_custom_toast, null)
+        val customToastView = LayoutInflater.from(mContext).inflate(R.layout.toast_custom, null)
         val ivIcon = customToastView.findViewById<ImageView>(R.id.ivIcon)
         val tvMessage = customToastView.findViewById<TextView>(R.id.tvMessage)
         val customToast = Toast(mContext)

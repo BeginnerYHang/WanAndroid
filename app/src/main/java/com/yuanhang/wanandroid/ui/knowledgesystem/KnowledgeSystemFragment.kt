@@ -17,6 +17,6 @@ class KnowledgeSystemFragment: BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.layout_home_page_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_home_page, container, false)
     }
 }

@@ -1,12 +1,7 @@
 package com.yuanhang.wanandroid.api
 
-import com.yuanhang.wanandroid.model.BannerItem
-import com.yuanhang.wanandroid.model.LoginInfo
-import com.yuanhang.wanandroid.model.UserInfo
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import com.yuanhang.wanandroid.model.*
+import retrofit2.http.*
 
 /**
  * created by yuanhang on 2022/2/10
@@ -29,4 +24,10 @@ interface ApiService {
 
     @GET("/banner/json")
     suspend fun getHomePageBanner(): JsonResponse<List<BannerItem>>
+
+    @GET("/article/list/{pageIndex}/json")
+    suspend fun getHomePageArticle(@Path("pageIndex")pageIndex: Int, @Query("page_size")pageSize: Int = 10): JsonResponse<ArticlePage>
+
+    @GET("/article/top/json")
+    suspend fun getHomePageTopArticle(): JsonResponse<List<Article>>
 }

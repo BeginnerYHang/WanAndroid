@@ -13,15 +13,4 @@ import javax.inject.Inject
  */
 class MainViewModel @Inject constructor(private val mApi: ApiService): BaseViewModel() {
 
-    fun logout() = MutableLiveData<Resource<Any>>().apply {
-        value = Resource.loading()
-        mUiScope.launch {
-            val jsonResponse = mApi.logout()
-            value = try {
-                Resource.success(data = jsonResponse.data, code = jsonResponse.errorCode)
-            }catch (e: Exception) {
-                Resource.error(e.message ?: "")
-            }
-        }
-    }
 }

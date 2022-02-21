@@ -6,6 +6,7 @@ import com.yuanhang.wanandroid.base.BaseViewModel
 import com.yuanhang.wanandroid.ui.homepage.HomePageViewModel
 import com.yuanhang.wanandroid.ui.login.LoginViewModel
 import com.yuanhang.wanandroid.ui.main.MainViewModel
+import com.yuanhang.wanandroid.ui.my.UserInfoViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -34,4 +35,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(HomePageViewModel::class)
     abstract fun bindHomePageViewModel(homePageViewModel: HomePageViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(UserInfoViewModel::class)
+    abstract fun bindUserInfoViewModel(userInfoViewModel: UserInfoViewModel): ViewModel
 }

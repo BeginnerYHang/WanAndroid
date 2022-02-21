@@ -17,6 +17,6 @@ class ProjectFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.layout_knowledge_square_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_knowledge_square, container, false)
     }
 }
