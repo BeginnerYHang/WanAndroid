@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.yuanhang.wanandroid.R
 import com.yuanhang.wanandroid.api.Status
 import com.yuanhang.wanandroid.base.BaseFragment
+import com.yuanhang.wanandroid.ui.common.WebViewActivity
 import kotlinx.android.synthetic.main.layout_home_page_fragment.*
 
 /**
@@ -41,7 +42,7 @@ class HomePageFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mViewModel = getViewModel(this, HomePageViewModel::class.java)
         mBannerAdapter = BannerItemAdapter(mImageLoader) {
-
+            WebViewActivity.start(this.requireActivity(), it.url)
         }
         vpBanner.apply {
             adapter = mBannerAdapter
