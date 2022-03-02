@@ -27,15 +27,12 @@ class MainActivity : BaseActivity() {
             offscreenPageLimit = mainViewPagerAdapter.itemCount
             isUserInputEnabled = false
         }
-        rightIcon.onClick {
-            SearchActivity.start(this)
-        }
         val tabIconList = mutableListOf(
-            R.drawable.icon_home_page,
-            R.drawable.icon_knowledge_system,
-            R.drawable.icon_knowledge_square,
-            R.drawable.icon_project,
-            R.drawable.icon_user_info
+            R.drawable.tab_home_page,
+            R.drawable.tab_knowledge_system,
+            R.drawable.tab_knowledge_square,
+            R.drawable.tab_project,
+            R.drawable.tab_user_info
         )
         val tabTextList = mutableListOf(
             "首页", "体系", "广场", "项目", "我的"

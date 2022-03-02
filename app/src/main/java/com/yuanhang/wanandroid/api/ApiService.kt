@@ -26,8 +26,18 @@ interface ApiService {
     suspend fun getHomePageBanner(): JsonResponse<List<BannerItem>>
 
     @GET("/article/list/{pageIndex}/json")
-    suspend fun getHomePageArticle(@Path("pageIndex")pageIndex: Int, @Query("page_size")pageSize: Int = 10): JsonResponse<ArticlePage>
+    suspend fun getHomePageArticle(@Path("pageIndex")pageIndex: Int,
+                                   @Query("page_size")pageSize: Int = 10): JsonResponse<ArticlePage>
+
+    @POST("/article/query/{pageIndex}/json")
+    @FormUrlEncoded
+    suspend fun searchArticle(@Field("k") keyWord: String,
+                              @Path("pageIndex")pageIndex: Int,
+                              @Query("page_size")pageSize: Int = 10): JsonResponse<ArticlePage>
 
     @GET("/article/top/json")
     suspend fun getHomePageTopArticle(): JsonResponse<List<Article>>
+
+    @GET("/hotkey/json")
+    suspend fun getSearchHottestWord(): JsonResponse<List<HottestWord>>
 }

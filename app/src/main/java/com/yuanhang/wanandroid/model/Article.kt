@@ -44,7 +44,7 @@ data class Article(
     val publishTime: Long,
     val realSuperChapterId: Int,
     val selfVisible: Int,
-    val shareDate: Long,
+    val shareDate: Long? = null,
     val shareUser: String,
     val superChapterId: Int,
     val superChapterName: String,

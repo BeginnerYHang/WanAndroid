@@ -1,6 +1,7 @@
 package com.yuanhang.wanandroid.di
 
 import com.yuanhang.wanandroid.base.BaseFragment
+import com.yuanhang.wanandroid.ui.homepage.CommonArticleFragment
 import com.yuanhang.wanandroid.ui.homepage.HomePageFragment
 import com.yuanhang.wanandroid.ui.knowledgesquare.KnowledgeSquareFragment
 import com.yuanhang.wanandroid.ui.knowledgesystem.KnowledgeSystemFragment
@@ -33,4 +34,7 @@ internal abstract class FragmentModule {
 
     @ContributesAndroidInjector
     internal abstract fun userInfoFragmentInjector(): UserInfoFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun commonArticleFragmentInjector(): CommonArticleFragment
 }

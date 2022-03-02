@@ -6,20 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
-    <com.yuanhang.wanandroid.widget.ToolBarView
-        android:id="@+id/toolBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:mediumTitle="@string/home_page"
-        app:rightIcon="@drawable/ic_search"
-        app:layout_constraintTop_toTopOf="parent"/>
-
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vpMain"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/toolBar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tlMain">
     </androidx.viewpager2.widget.ViewPager2>
 

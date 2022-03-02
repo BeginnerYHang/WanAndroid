@@ -4,7 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.LinearLayout
+import androidx.annotation.DrawableRes
 import com.yuanhang.wanandroid.R
 import com.yuanhang.wanandroid.util.inVisible
 import kotlinx.android.synthetic.main.layout_toolbar.view.*
@@ -20,8 +22,10 @@ class ToolBarView @JvmOverloads constructor(
     defStyleRes: Int = -1
 ) : LinearLayout(context, attrs, defStyleAttr, defStyleRes) {
 
+    private val toolBarView: View
+
     init {
-        val toolBarView = LayoutInflater.from(context).inflate(R.layout.layout_toolbar, this, true)
+        toolBarView = LayoutInflater.from(context).inflate(R.layout.layout_toolbar, this, true)
         val obtainAttrs = context.theme.obtainStyledAttributes(attrs, R.styleable.ToolBarView, 0, 0)
         val leftIconId: Int
         val rightIconId: Int
@@ -51,5 +55,9 @@ class ToolBarView @JvmOverloads constructor(
             3 -> Gravity.END
             else -> Gravity.CENTER
         }
+    }
+
+    fun setRightIcon(@DrawableRes drawableRes: Int) {
+        toolBarView.rightIcon.setImageResource(drawableRes)
     }
 }

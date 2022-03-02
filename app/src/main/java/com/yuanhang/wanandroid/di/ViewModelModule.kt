@@ -3,10 +3,12 @@ package com.yuanhang.wanandroid.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yuanhang.wanandroid.base.BaseViewModel
+import com.yuanhang.wanandroid.ui.homepage.CommonArticleViewModel
 import com.yuanhang.wanandroid.ui.homepage.HomePageViewModel
 import com.yuanhang.wanandroid.ui.login.LoginViewModel
 import com.yuanhang.wanandroid.ui.main.MainViewModel
 import com.yuanhang.wanandroid.ui.my.UserInfoViewModel
+import com.yuanhang.wanandroid.ui.search.SearchViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -40,4 +42,14 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(UserInfoViewModel::class)
     abstract fun bindUserInfoViewModel(userInfoViewModel: UserInfoViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchViewModel::class)
+    abstract fun bindSearchViewModel(searchViewModel: SearchViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CommonArticleViewModel::class)
+    abstract fun bindCommonArticleViewModel(commonArticleViewModel: CommonArticleViewModel): ViewModel
 }

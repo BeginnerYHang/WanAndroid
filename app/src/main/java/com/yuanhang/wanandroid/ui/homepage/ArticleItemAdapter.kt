@@ -1,6 +1,7 @@
 package com.yuanhang.wanandroid.ui.homepage
 
 import android.content.Context
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,12 +47,18 @@ class ArticleItemAdapter(private val context: Context) : RecyclerView.Adapter<Ar
         notifyItemRangeInserted(positionStart, articles.size)
     }
 
+    fun clear() {
+        val originSize = mArticles.size
+        mArticles.clear()
+        notifyItemRangeRemoved(0, originSize)
+    }
+
     inner class ArticleViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(articleItem: Article) {
             containerView.ivIsNew.isVisible = articleItem.fresh
             containerView.ivIsTop.isVisible = (articleItem.isTop == true)
-            containerView.tvArticleTitle.text = articleItem.title
+            containerView.tvArticleTitle.text = Html.fromHtml(articleItem.title)
             if (articleItem.author.isBlank() && articleItem.shareUser.isBlank()) {
                 containerView.gone()
             } else {

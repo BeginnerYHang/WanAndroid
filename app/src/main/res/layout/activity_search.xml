@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|end"
                 android:layout_marginEnd="12dp"
+                android:visibility="gone"
                 android:src="@drawable/ic_input_close" />
         </FrameLayout>
 
@@ -86,28 +87,16 @@
         app:layout_constraintStart_toStartOf="@id/llSearch"
         app:layout_constraintTop_toBottomOf="@id/division" />
 
-    <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:id="@+id/searchRefreshLayout"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/articleFragmentContainer"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@id/llSearch"
-        app:layout_constraintStart_toStartOf="@id/llSearch"
-        app:layout_constraintTop_toBottomOf="@id/rvSearchHottestWords">
-
-        <com.scwang.smart.refresh.header.ClassicsHeader
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvSearchResult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.scwang.smart.refresh.footer.ClassicsFooter
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llSearch"
+        app:layout_constraintBottom_toBottomOf="parent">
+    </androidx.fragment.app.FragmentContainerView>
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/hottestWordsGroup"
