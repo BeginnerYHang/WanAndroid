@@ -20,12 +20,12 @@ class CommonArticleViewModel @Inject constructor(val mApi: ApiService): BaseView
      * TODO:获取首页文章列表,包含置顶文章和一般文章
      * @return
      */
-    fun getAllArticle(isRefresh: Boolean, pagIndex: Int, keyWord: String? = null) = MutableLiveData<Resource<ArticlePage>>().apply {
+    fun getAllArticle(isRefresh: Boolean, pageIndex: Int, keyWord: String? = null, levelId: Int? = null) = MutableLiveData<Resource<ArticlePage>>().apply {
         value = Resource.loading()
         mUiScope.launch {
             value = try {
                 val allArticle = ArrayList<Article>()
-                if (keyWord == null) {
+                if (keyWord == null && levelId == null) {
                     if (isRefresh) {
                         val topArticle = mApi.getHomePageTopArticle()
                         topArticle.data?.let {
@@ -36,10 +36,12 @@ class CommonArticleViewModel @Inject constructor(val mApi: ApiService): BaseView
                         }
                     }
                 }
-                val homePageArticle = if (keyWord == null) {
-                    mApi.getHomePageArticle(pagIndex)
+                val homePageArticle = if (keyWord == null && levelId == null) {
+                    mApi.getHomePageArticle(pageIndex)
+                } else if (levelId == null){
+                    mApi.searchArticle(keyWord!!, pageIndex)
                 } else {
-                    mApi.searchArticle(keyWord, pagIndex)
+                    mApi.getArticleInLevel(pageIndex, levelId)
                 }
                 homePageArticle.data?.articles?.let {
                     it.forEach {

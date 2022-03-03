@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Wanandroid">
         <activity
+            android:name=".ui.knowledgesystem.KnowLedgeSystemResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.search.SearchActivity"
             android:exported="false" />
         <activity

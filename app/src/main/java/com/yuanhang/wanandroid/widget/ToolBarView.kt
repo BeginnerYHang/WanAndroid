@@ -22,10 +22,10 @@ class ToolBarView @JvmOverloads constructor(
     defStyleRes: Int = -1
 ) : LinearLayout(context, attrs, defStyleAttr, defStyleRes) {
 
-    private val toolBarView: View
+    private val toolBarView: View =
+        LayoutInflater.from(context).inflate(R.layout.layout_toolbar, this, true)
 
     init {
-        toolBarView = LayoutInflater.from(context).inflate(R.layout.layout_toolbar, this, true)
         val obtainAttrs = context.theme.obtainStyledAttributes(attrs, R.styleable.ToolBarView, 0, 0)
         val leftIconId: Int
         val rightIconId: Int
@@ -59,5 +59,9 @@ class ToolBarView @JvmOverloads constructor(
 
     fun setRightIcon(@DrawableRes drawableRes: Int) {
         toolBarView.rightIcon.setImageResource(drawableRes)
+    }
+
+    fun setMediumText(mediumText: String) {
+        toolBarView.tvCenter.text = mediumText
     }
 }

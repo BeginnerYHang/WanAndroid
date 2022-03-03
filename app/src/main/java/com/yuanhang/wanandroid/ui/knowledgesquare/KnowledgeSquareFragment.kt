@@ -12,11 +12,14 @@ import com.yuanhang.wanandroid.base.BaseFragment
  * description:
  */
 class KnowledgeSquareFragment: BaseFragment() {
+
+    private lateinit var mViewModel: KnowledgeSquareViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_project, container, false)
+        return inflater.inflate(R.layout.fragment_knowledge_square, container, false)
     }
 }

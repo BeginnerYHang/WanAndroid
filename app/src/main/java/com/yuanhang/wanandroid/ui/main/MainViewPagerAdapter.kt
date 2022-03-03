@@ -21,8 +21,8 @@ class MainViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycl
     private val mFragments by lazy {
         mutableListOf(
             HomePageFragment(),
-            KnowledgeSquareFragment(),
             KnowledgeSystemFragment(),
+            KnowledgeSquareFragment(),
             ProjectFragment(),
             UserInfoFragment()
         )

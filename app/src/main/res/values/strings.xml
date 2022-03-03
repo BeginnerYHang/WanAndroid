@@ -15,4 +15,5 @@
     <string name="home_page_article_author">作者:%s</string>
     <string name="home_page_article_sharer">分享者:%s</string>
     <string name="refresh_no_more_data_tip">没有更多数据</string>
+    <string name="knowledge_system_toolbar_tip">知识体系</string>
 </resources>

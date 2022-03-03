@@ -5,6 +5,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.yuanhang.wanandroid.base.BaseViewModel
 import com.yuanhang.wanandroid.ui.homepage.CommonArticleViewModel
 import com.yuanhang.wanandroid.ui.homepage.HomePageViewModel
+import com.yuanhang.wanandroid.ui.knowledgesquare.KnowledgeSquareFragment
+import com.yuanhang.wanandroid.ui.knowledgesquare.KnowledgeSquareViewModel
+import com.yuanhang.wanandroid.ui.knowledgesystem.KnowLedgeSystemResultViewModel
+import com.yuanhang.wanandroid.ui.knowledgesystem.KnowledgeSystemFragment
+import com.yuanhang.wanandroid.ui.knowledgesystem.KnowledgeSystemViewModel
 import com.yuanhang.wanandroid.ui.login.LoginViewModel
 import com.yuanhang.wanandroid.ui.main.MainViewModel
 import com.yuanhang.wanandroid.ui.my.UserInfoViewModel
@@ -52,4 +57,21 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(CommonArticleViewModel::class)
     abstract fun bindCommonArticleViewModel(commonArticleViewModel: CommonArticleViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(KnowledgeSystemViewModel::class)
+    abstract fun bindKnowledgeSystemViewModel(knowledgeSystemViewModel: KnowledgeSystemViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(KnowledgeSquareViewModel::class)
+    abstract fun bindKnowledgeSquareViewModel(knowledgeSquareViewModel: KnowledgeSquareViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(KnowLedgeSystemResultViewModel::class)
+    abstract fun bindKnowledgeSquareResultViewModel(knowledgeSquareResultViewModel: KnowLedgeSystemResultViewModel): ViewModel
+
+
 }

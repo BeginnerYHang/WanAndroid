@@ -48,9 +48,8 @@ class ArticleItemAdapter(private val context: Context) : RecyclerView.Adapter<Ar
     }
 
     fun clear() {
-        val originSize = mArticles.size
         mArticles.clear()
-        notifyItemRangeRemoved(0, originSize)
+        notifyDataSetChanged()
     }
 
     inner class ArticleViewHolder(override val containerView: View) :

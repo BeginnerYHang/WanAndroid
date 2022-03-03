@@ -8,6 +8,7 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.yuanhang.wanandroid.R
 import com.yuanhang.wanandroid.api.Status
 import com.yuanhang.wanandroid.base.BaseActivity
+import com.yuanhang.wanandroid.model.HottestWord
 import com.yuanhang.wanandroid.ui.homepage.CommonArticleFragment
 import com.yuanhang.wanandroid.util.gone
 import com.yuanhang.wanandroid.util.onClick
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_search.*
 class SearchActivity : BaseActivity() {
 
     private lateinit var mViewModel: SearchViewModel
-    private lateinit var mHottestWordAdapter: HottestWordAdapter
+    private lateinit var mHottestWordAdapter: HottestWordAdapter<HottestWord>
     private var mResultFragment: CommonArticleFragment? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +30,7 @@ class SearchActivity : BaseActivity() {
     fun initView() {
         etSearch.addTextChangedListener {
             if (it.isNullOrBlank()) {
+                hottestWordsGroup.visible()
                 ivClear.gone()
                 articleFragmentContainer.gone()
             } else {
@@ -54,7 +56,11 @@ class SearchActivity : BaseActivity() {
             }
             return@setOnEditorActionListener false
         }
-        mHottestWordAdapter = HottestWordAdapter()
+        mHottestWordAdapter = HottestWordAdapter() { keyWord, _ ->
+            etSearch.setText(keyWord)
+            etSearch.setSelection(keyWord?.length?: 0)
+            keyWord?.let { search(it) }
+        }
         rvSearchHottestWords.apply {
             layoutManager = FlexboxLayoutManager(this@SearchActivity)
             adapter = mHottestWordAdapter

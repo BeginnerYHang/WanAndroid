@@ -28,6 +28,7 @@ class CommonArticleFragment: BaseFragment() {
     private lateinit var mViewModel: CommonArticleViewModel
     private lateinit var mArticleAdapter: ArticleItemAdapter
     private var keyWord: String? = null
+    private var levelId: Int? = null
     // 刷新操作需要重新请求,上拉加载不再需要
     private var isRefresh: Boolean = true
     private var pageIndex: Int = 0
@@ -60,6 +61,7 @@ class CommonArticleFragment: BaseFragment() {
             })
         }
         keyWord = arguments?.get(KEYWORD) as? String
+        levelId = arguments?.get(LEVELID) as? Int
         smartRefreshLayout.setOnRefreshListener {
             isRefresh = true
             pageIndex = 0
@@ -82,20 +84,21 @@ class CommonArticleFragment: BaseFragment() {
         isRefresh = true
         pageIndex = 0
         mArticleAdapter.clear()
+        tvEmptyResult.gone()
         getAllArticle()
     }
 
     fun getAllArticle() {
-        mViewModel.getAllArticle(isRefresh, pageIndex, keyWord).observe(viewLifecycleOwner) {
+        mViewModel.getAllArticle(isRefresh, pageIndex, keyWord, levelId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let {
-                        if (it.articles.isEmpty()) {
-                            tvEmptyResult.visible()
-                        } else {
-                            tvEmptyResult.gone()
-                        }
                         if (isRefresh) {
+                            if (it.articles.isEmpty()) {
+                                tvEmptyResult.visible()
+                            } else {
+                                tvEmptyResult.gone()
+                            }
                             mArticleAdapter.setData(it.articles)
                             smartRefreshLayout.finishRefresh(true)
                         } else {
@@ -127,10 +130,11 @@ class CommonArticleFragment: BaseFragment() {
     companion object{
 
         const val KEYWORD = "keyWord"
+        const val LEVELID = "levelId"
 
-        fun newInstance(keyWord: String? = null): CommonArticleFragment {
+        fun newInstance(keyWord: String? = null, levelId: Int? = null): CommonArticleFragment {
             return CommonArticleFragment().apply {
-                arguments = bundleOf(KEYWORD to keyWord)
+                arguments = bundleOf(KEYWORD to keyWord, LEVELID to levelId)
             }
         }
     }
