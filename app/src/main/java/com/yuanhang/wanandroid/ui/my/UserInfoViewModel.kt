@@ -13,6 +13,10 @@ import javax.inject.Inject
  * description:
  */
 class UserInfoViewModel @Inject constructor(val mApi: ApiService): BaseViewModel() {
+
+    var userId: Int? = null
+    var isGuest: Boolean = false
+
     fun logout() = MutableLiveData<Resource<Any>>().apply {
         value = Resource.loading()
         mUiScope.launch {

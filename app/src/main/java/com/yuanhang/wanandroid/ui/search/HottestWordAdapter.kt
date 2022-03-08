@@ -6,8 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yuanhang.wanandroid.R
+import com.yuanhang.wanandroid.model.Article
 import com.yuanhang.wanandroid.model.HottestWord
 import com.yuanhang.wanandroid.model.Level
+import com.yuanhang.wanandroid.model.UsefulWebsite
 import com.yuanhang.wanandroid.util.onClick
 
 /**
@@ -45,6 +47,18 @@ class HottestWordAdapter<T>(val itemViewClick: ((String?, T?) -> Unit)? = null) 
                 }
                 is Level -> {
                     tvHottestWord.text = t.name
+                    itemView.onClick {
+                        itemViewClick?.invoke(null, t)
+                    }
+                }
+                is UsefulWebsite -> {
+                    tvHottestWord.text = t.name
+                    itemView.onClick {
+                        itemViewClick?.invoke(null, t)
+                    }
+                }
+                is Article -> {
+                    tvHottestWord.text = t.title
                     itemView.onClick {
                         itemViewClick?.invoke(null, t)
                     }

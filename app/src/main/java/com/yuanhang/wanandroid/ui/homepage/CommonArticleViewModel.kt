@@ -2,11 +2,10 @@ package com.yuanhang.wanandroid.ui.homepage
 
 import androidx.lifecycle.MutableLiveData
 import com.yuanhang.wanandroid.api.ApiService
-import com.yuanhang.wanandroid.api.JsonResponse
 import com.yuanhang.wanandroid.api.Resource
 import com.yuanhang.wanandroid.base.BaseViewModel
 import com.yuanhang.wanandroid.model.Article
-import com.yuanhang.wanandroid.model.ArticlePage
+import com.yuanhang.wanandroid.model.CommonPage
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,7 +19,7 @@ class CommonArticleViewModel @Inject constructor(val mApi: ApiService): BaseView
      * TODO:获取首页文章列表,包含置顶文章和一般文章
      * @return
      */
-    fun getAllArticle(isRefresh: Boolean, pageIndex: Int, keyWord: String? = null, levelId: Int? = null) = MutableLiveData<Resource<ArticlePage>>().apply {
+    fun getAllArticle(isRefresh: Boolean, pageIndex: Int, keyWord: String? = null, levelId: Int? = null) = MutableLiveData<Resource<CommonPage<Article>>>().apply {
         value = Resource.loading()
         mUiScope.launch {
             value = try {

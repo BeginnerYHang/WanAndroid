@@ -1,31 +1,13 @@
 package com.yuanhang.wanandroid.model
 
-import android.os.Parcelable
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import com.yuanhang.wanandroid.R
-import com.yuanhang.wanandroid.WanAndroidApplication
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.RawValue
 
 /**
- * created by yuanhang on 2022/2/21
+ * created by yuanhang on 2022/3/7
  * description:
  */
-
 @JsonClass(generateAdapter = true)
-data class CommonPage<T>(
-    val curPage: Int,
-    @Json(name = "datas") var articles: List<T>,
-    val offset: Int,
-    val over: Boolean,
-    val pageCount: Int,
-    @Json(name = "size") val pageSize: Int,
-    val total: Int
-)
-
-@JsonClass(generateAdapter = true)
-data class Article(
+data class Project(
     val apkLink: String,
     val audit: Int,
     val author: String,
@@ -58,13 +40,7 @@ data class Article(
     val type: Int,
     val userId: Int,
     val visible: Int,
-    val zan: Int,
-    // 自定义字段,定义文章是否置顶
-    var isTop: Boolean?) {
-
-    fun getArticleAuthor() = if (author.isBlank()) {
-        WanAndroidApplication.app.getString(R.string.home_page_article_sharer, shareUser)
-    } else {
-        WanAndroidApplication.app.getString(R.string.home_page_article_author, author)
-    }
+    val zan: Int
+) {
+    fun getProjectAuthor() = if (author.isEmpty()) shareUser else author
 }

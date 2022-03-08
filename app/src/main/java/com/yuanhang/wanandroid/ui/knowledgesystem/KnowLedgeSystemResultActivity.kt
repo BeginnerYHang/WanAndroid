@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import com.yuanhang.wanandroid.R
 import com.yuanhang.wanandroid.base.BaseActivity
+import com.yuanhang.wanandroid.model.Article
 import com.yuanhang.wanandroid.model.Level
 import com.yuanhang.wanandroid.ui.homepage.CommonArticleFragment
 import com.yuanhang.wanandroid.util.onClick
@@ -23,7 +24,6 @@ class KnowLedgeSystemResultActivity : BaseActivity() {
         setContentView(R.layout.activity_knowledge_system_result)
         mViewModel = getViewModel(this, KnowLedgeSystemResultViewModel::class.java)
         level = intent.getParcelableExtra(LEVEL)
-        Log.d("???", "onCreate: $level")
         initView()
     }
 
@@ -45,7 +45,8 @@ class KnowLedgeSystemResultActivity : BaseActivity() {
     companion object {
         const val LEVEL = "level"
 
-        fun startActivity(from: BaseActivity, level: Level) {
+        fun startActivity(from: BaseActivity,
+                          level: Level) {
             val intent = Intent(from, KnowLedgeSystemResultActivity::class.java)
             intent.putExtra(LEVEL, level)
             from.startActivity(intent)

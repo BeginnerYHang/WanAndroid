@@ -27,18 +27,18 @@ interface ApiService {
 
     @GET("/article/list/{pageIndex}/json")
     suspend fun getHomePageArticle(@Path("pageIndex")pageIndex: Int,
-                                   @Query("page_size")pageSize: Int = 10): JsonResponse<ArticlePage>
+                                   @Query("page_size")pageSize: Int = 10): JsonResponse<CommonPage<Article>>
 
     @POST("/article/query/{pageIndex}/json")
     @FormUrlEncoded
     suspend fun searchArticle(@Field("k") keyWord: String,
                               @Path("pageIndex") pageIndex: Int,
-                              @Field("page_size") pageSize: Int = 10): JsonResponse<ArticlePage>
+                              @Field("page_size") pageSize: Int = 10): JsonResponse<CommonPage<Article>>
 
     @GET("/article/list/{pageIndex}/json")
     suspend fun getArticleInLevel(@Path("pageIndex") pageIndex: Int,
                                   @Query("cid") levelId: Int,
-                                  @Query("page_size") pageSize: Int = 10): JsonResponse<ArticlePage>
+                                  @Query("page_size") pageSize: Int = 10): JsonResponse<CommonPage<Article>>
 
     @GET("/article/top/json")
     suspend fun getHomePageTopArticle(): JsonResponse<List<Article>>
@@ -48,4 +48,18 @@ interface ApiService {
 
     @GET("/tree/json")
     suspend fun getKnowledgeSystem(): JsonResponse<List<Level>>
+
+    @GET("/friend/json")
+    suspend fun getUsefulWebsite(): JsonResponse<List<UsefulWebsite>>
+
+    @GET("/navi/json")
+    suspend fun getNavigationItem(): JsonResponse<List<NavigationItem>>
+
+    @GET("/project/tree/json")
+    suspend fun getProjectKinds(): JsonResponse<List<Level>>
+
+    @GET("/project/list/{pageIndex}/json")
+    suspend fun getProjects(@Path("pageIndex") pageIndex: Int,
+                            @Query("cid") cid: Int,
+                            @Query("page_size") pageSize: Int = 10): JsonResponse<CommonPage<Project>>
 }

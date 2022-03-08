@@ -2,6 +2,9 @@ package com.yuanhang.wanandroid.ui.homepage
 
 import android.content.Context
 import android.text.Html
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yuanhang.wanandroid.R
 import com.yuanhang.wanandroid.model.Article
+import com.yuanhang.wanandroid.ui.common.NicknameClickSpan
+import com.yuanhang.wanandroid.ui.knowledgesystem.KnowLedgeSystemResultActivity
+import com.yuanhang.wanandroid.ui.main.MainActivity
 import com.yuanhang.wanandroid.util.gone
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_article.view.*
@@ -19,7 +25,7 @@ import kotlinx.android.synthetic.main.item_article.view.*
  * created by yuanhang on 2022/2/21
  * description:
  */
-class ArticleItemAdapter(private val context: Context) : RecyclerView.Adapter<ArticleItemAdapter.ArticleViewHolder>() {
+class ArticleItemAdapter(private val context: MainActivity) : RecyclerView.Adapter<ArticleItemAdapter.ArticleViewHolder>() {
 
     private val mArticles = ArrayList<Article>()
 
@@ -61,11 +67,22 @@ class ArticleItemAdapter(private val context: Context) : RecyclerView.Adapter<Ar
             if (articleItem.author.isBlank() && articleItem.shareUser.isBlank()) {
                 containerView.gone()
             } else {
-                containerView.tvAuthorOrSharer.text = if (articleItem.author.isBlank()) {
+                val spanStart: Int
+                val spanEnd: Int
+                val authorTip = if (articleItem.author.isBlank()) {
+                    spanStart = 4
+                    spanEnd = spanStart + articleItem.shareUser.length
                     context.getString(R.string.home_page_article_sharer, articleItem.shareUser)
                 } else {
+                    spanStart = 3
+                    spanEnd = spanStart + articleItem.author.length
                     context.getString(R.string.home_page_article_author, articleItem.author)
                 }
+                val spannable = SpannableString(authorTip)
+                spannable.setSpan(NicknameClickSpan(){
+
+                }, spanStart, spanEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                containerView.tvAuthorOrSharer.text = spannable
             }
             if (articleItem.superChapterName.isBlank() && articleItem.chapterName.isBlank()) {
                 containerView.tvKinds.gone()

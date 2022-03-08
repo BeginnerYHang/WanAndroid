@@ -17,6 +17,6 @@ data class Level (
     val name: String,
     val order: Int,
     val parentChapterId: Int,
-    val userControlSetTop: Boolean,
+    val userControlSetTop: Boolean? = null,
     val visible: Int
 ) : Parcelable

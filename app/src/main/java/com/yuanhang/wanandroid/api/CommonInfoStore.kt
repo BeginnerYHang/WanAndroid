@@ -54,4 +54,6 @@ object CommonInfoStore {
             userInfo?.value = info
         }
     }
+
+    fun getUserId() = userInfo?.value?.userInfo?.id?: 0
 }

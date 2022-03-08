@@ -6,8 +6,8 @@ import com.yuanhang.wanandroid.api.JsonResponse
 import com.yuanhang.wanandroid.api.Resource
 import com.yuanhang.wanandroid.base.BaseViewModel
 import com.yuanhang.wanandroid.model.Article
-import com.yuanhang.wanandroid.model.ArticlePage
 import com.yuanhang.wanandroid.model.BannerItem
+import com.yuanhang.wanandroid.model.CommonPage
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,7 +33,7 @@ class HomePageViewModel @Inject constructor(private val mApi: ApiService) : Base
      * TODO:获取首页文章列表,包含置顶文章和一般文章
      * @return
      */
-    fun getAllArticle(isRefresh: Boolean, pagIndex: Int) = MutableLiveData<Resource<ArticlePage>>().apply {
+    fun getAllArticle(isRefresh: Boolean, pagIndex: Int) = MutableLiveData<Resource<CommonPage<Article>>>().apply {
         value = Resource.loading()
         mUiScope.launch {
             value = try {

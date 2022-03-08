@@ -5,6 +5,8 @@ import com.yuanhang.wanandroid.api.ApiService
 import com.yuanhang.wanandroid.api.Resource
 import com.yuanhang.wanandroid.base.BaseViewModel
 import com.yuanhang.wanandroid.model.Level
+import com.yuanhang.wanandroid.model.NavigationItem
+import com.yuanhang.wanandroid.model.UsefulWebsite
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,6 +21,28 @@ class KnowledgeSystemViewModel @Inject constructor(private val mApi: ApiService)
             value = try {
                 val response = mApi.getKnowledgeSystem()
                 Resource.success(response.data, response.errorMsg, response.errorCode)
+            }catch (e: Exception) {
+                Resource.error(e.message?: "")
+            }
+        }
+    }
+
+    fun getUsefulWebsiteData() = MutableLiveData<Resource<List<UsefulWebsite>>>().apply {
+        mUiScope.launch {
+            value = try {
+                val response = mApi.getUsefulWebsite()
+                Resource.success(response.data, response.errorMsg, response.errorCode)
+            }catch (e: Exception) {
+                Resource.error(e.message?: "")
+            }
+        }
+    }
+
+    fun getNavigationItem() = MutableLiveData<Resource<List<NavigationItem>>>().apply {
+        mUiScope.launch {
+            value = try {
+                val response = mApi.getNavigationItem()
+                Resource.success(response.data, response.errorMsg,response.errorCode)
             }catch (e: Exception) {
                 Resource.error(e.message?: "")
             }

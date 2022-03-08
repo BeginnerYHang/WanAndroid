@@ -13,6 +13,8 @@ import com.yuanhang.wanandroid.ui.knowledgesystem.KnowledgeSystemViewModel
 import com.yuanhang.wanandroid.ui.login.LoginViewModel
 import com.yuanhang.wanandroid.ui.main.MainViewModel
 import com.yuanhang.wanandroid.ui.my.UserInfoViewModel
+import com.yuanhang.wanandroid.ui.project.ProjectListViewModel
+import com.yuanhang.wanandroid.ui.project.ProjectViewModel
 import com.yuanhang.wanandroid.ui.search.SearchViewModel
 import dagger.Binds
 import dagger.MapKey
@@ -73,5 +75,13 @@ abstract class ViewModelModule {
     @ViewModelKey(KnowLedgeSystemResultViewModel::class)
     abstract fun bindKnowledgeSquareResultViewModel(knowledgeSquareResultViewModel: KnowLedgeSystemResultViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProjectViewModel::class)
+    abstract fun bindProjectViewModel(projectViewModel: ProjectViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProjectListViewModel::class)
+    abstract fun bindProjectListViewModel(projectListViewModel: ProjectListViewModel): ViewModel
 }

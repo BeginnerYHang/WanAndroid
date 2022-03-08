@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="6dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="6dp"
+    android:elevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp">
+
+        <ImageView
+            android:id="@+id/ivProjectCover"
+            android:layout_width="120dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="4dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvProjectTitle"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivProjectCover"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvProjectDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvProjectTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvProjectTitle" />
+
+        <TextView
+            android:id="@+id/tvProjectTime"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="3dp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            app:layout_constraintBottom_toTopOf="@id/tvProjectAuthor"
+            app:layout_constraintEnd_toStartOf="@id/ivProjectCollect"
+            app:layout_constraintStart_toStartOf="@id/tvProjectTitle" />
+
+        <TextView
+            android:id="@+id/tvProjectAuthor"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="3dp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivProjectCollect"
+            app:layout_constraintStart_toStartOf="@id/tvProjectTitle" />
+
+        <ImageView
+            android:id="@+id/ivProjectCollect"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="6dp"
+            android:src="@drawable/ic_collect"
+            app:layout_constraintBottom_toBottomOf="@id/tvProjectAuthor"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

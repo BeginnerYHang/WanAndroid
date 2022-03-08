@@ -3,6 +3,7 @@ package com.yuanhang.wanandroid.ui.homepage
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.yuanhang.wanandroid.api.Status
 import com.yuanhang.wanandroid.base.BaseActivity
 import com.yuanhang.wanandroid.base.BaseFragment
 import com.yuanhang.wanandroid.ui.common.WebViewActivity
+import com.yuanhang.wanandroid.ui.main.MainViewModel
 import com.yuanhang.wanandroid.ui.search.SearchActivity
 import com.yuanhang.wanandroid.util.onClick
 import com.yuanhang.wanandroid.util.visible
@@ -90,6 +92,11 @@ class HomePageFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         getHomePageBanner()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mHandler.removeCallbacks(runnable)
     }
 
     fun getHomePageBanner() {

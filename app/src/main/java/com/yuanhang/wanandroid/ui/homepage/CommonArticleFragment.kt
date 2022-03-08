@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yuanhang.wanandroid.R
 import com.yuanhang.wanandroid.api.Status
 import com.yuanhang.wanandroid.base.BaseFragment
+import com.yuanhang.wanandroid.ui.main.MainActivity
 import com.yuanhang.wanandroid.util.dp2px
 import com.yuanhang.wanandroid.util.gone
 import com.yuanhang.wanandroid.util.visible
@@ -43,7 +44,7 @@ class CommonArticleFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mViewModel = getViewModel(this, CommonArticleViewModel::class.java)
-        mArticleAdapter = ArticleItemAdapter(requireContext())
+        mArticleAdapter = ArticleItemAdapter(requireActivity() as MainActivity)
         rvArticle.apply {
             layoutManager = LinearLayoutManager(this@CommonArticleFragment.requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = mArticleAdapter
