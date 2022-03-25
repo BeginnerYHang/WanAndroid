@@ -37,6 +37,16 @@ object SPUtils {
         return value as T
     }
 
+    //移除指定key的本地缓存
+    fun remove(context: Context, key: String) {
+        val sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
+        if (sp.contains(key)) {
+            val editor = sp.edit()
+            editor.remove(key)
+            editor.apply()
+        }
+    }
+
     class StringSet: HashSet<String> {
         constructor(): super()
         constructor(collection: Collection<String>): super(collection)

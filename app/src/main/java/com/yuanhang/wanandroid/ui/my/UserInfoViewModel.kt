@@ -3,8 +3,10 @@ package com.yuanhang.wanandroid.ui.my
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.yuanhang.wanandroid.api.ApiService
+import com.yuanhang.wanandroid.api.COOKIE_HEADER
 import com.yuanhang.wanandroid.api.Resource
 import com.yuanhang.wanandroid.base.BaseViewModel
+import com.yuanhang.wanandroid.util.SPUtils
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

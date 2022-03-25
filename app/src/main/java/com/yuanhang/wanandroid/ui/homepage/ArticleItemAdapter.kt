@@ -1,23 +1,23 @@
 package com.yuanhang.wanandroid.ui.homepage
 
-import android.content.Context
+import android.content.Intent
 import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yuanhang.wanandroid.R
+import com.yuanhang.wanandroid.base.BaseActivity
 import com.yuanhang.wanandroid.model.Article
+import com.yuanhang.wanandroid.model.Level
 import com.yuanhang.wanandroid.ui.common.NicknameClickSpan
 import com.yuanhang.wanandroid.ui.knowledgesystem.KnowLedgeSystemResultActivity
-import com.yuanhang.wanandroid.ui.main.MainActivity
 import com.yuanhang.wanandroid.util.gone
+import com.yuanhang.wanandroid.util.onClick
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_article.view.*
 
@@ -25,14 +25,21 @@ import kotlinx.android.synthetic.main.item_article.view.*
  * created by yuanhang on 2022/2/21
  * description:
  */
-class ArticleItemAdapter(private val context: MainActivity) : RecyclerView.Adapter<ArticleItemAdapter.ArticleViewHolder>() {
+class ArticleItemAdapter(private val context: BaseActivity,
+                         val isShare: Boolean = false,
+                         val collectArticleClick: (Article, Int) -> Unit) : RecyclerView.Adapter<ArticleItemAdapter.ArticleViewHolder>() {
 
     private val mArticles = ArrayList<Article>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.item_article, parent, false)
-        return ArticleViewHolder(itemView)
+        val holder = ArticleViewHolder(itemView)
+        holder.containerView.ivArticleCollect.onClick {
+            val position = holder.adapterPosition
+            collectArticleClick.invoke(mArticles[position], position)
+        }
+        return holder
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
@@ -84,10 +91,18 @@ class ArticleItemAdapter(private val context: MainActivity) : RecyclerView.Adapt
                 }, spanStart, spanEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 containerView.tvAuthorOrSharer.text = spannable
             }
-            if (articleItem.superChapterName.isBlank() && articleItem.chapterName.isBlank()) {
+            if (isShare && articleItem.superChapterName.isBlank() && articleItem.chapterName.isBlank()) {
                 containerView.tvKinds.gone()
             } else {
-                containerView.tvKinds.text = "${articleItem.superChapterName}/${articleItem.chapterName}"
+                val spannable = SpannableString(context.getString(R.string.article_kind_hint, "${articleItem.superChapterName}/${articleItem.chapterName}"))
+                spannable.setSpan(NicknameClickSpan {
+                    if (context !is KnowLedgeSystemResultActivity) {
+                        KnowLedgeSystemResultActivity.startActivity(context, Level(articleItem.superChapterId,
+                            articleItem.chapterName,articleItem.realSuperChapterId, parentChapterName = articleItem.superChapterName ))
+                    }
+                },3,3 + articleItem.superChapterName.length + articleItem.chapterName.length + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                containerView.tvKinds.setMovementMethodDefault()
+                containerView.tvKinds.text = spannable
             }
             if (articleItem.niceShareDate.isBlank()) {
                 containerView.tvTime.gone()
@@ -97,9 +112,14 @@ class ArticleItemAdapter(private val context: MainActivity) : RecyclerView.Adapt
             if (articleItem.tags.isNotEmpty()) {
                 val tagAdapter = ArticleTagItemAdapter(articleItem.tags)
                 containerView.rvTags.apply {
-                    layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
                     adapter = tagAdapter
                 }
+            }
+            if (articleItem.collect) {
+                containerView.ivArticleCollect.setImageResource(R.drawable.ic_collected)
+            } else {
+                containerView.ivArticleCollect.setImageResource(R.drawable.ic_collect)
             }
         }
     }

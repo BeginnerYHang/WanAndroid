@@ -1,7 +1,9 @@
 package com.yuanhang.wanandroid.ui.homepage
 
+import android.hardware.biometrics.BiometricManager
 import androidx.lifecycle.MutableLiveData
 import com.yuanhang.wanandroid.api.ApiService
+import com.yuanhang.wanandroid.api.JsonResponse
 import com.yuanhang.wanandroid.api.Resource
 import com.yuanhang.wanandroid.base.BaseViewModel
 import com.yuanhang.wanandroid.model.Article
@@ -13,34 +15,46 @@ import javax.inject.Inject
  * created by yuanhang on 2022/3/2
  * description:
  */
-class CommonArticleViewModel @Inject constructor(val mApi: ApiService): BaseViewModel() {
+class CommonArticleViewModel @Inject constructor(val mApi: ApiService) : BaseViewModel() {
 
     /**
-     * TODO:获取首页文章列表,包含置顶文章和一般文章
+     * TODO：配合CommonArticleFragment从服务端请求数据
      * @return
      */
-    fun getAllArticle(isRefresh: Boolean, pageIndex: Int, keyWord: String? = null, levelId: Int? = null) = MutableLiveData<Resource<CommonPage<Article>>>().apply {
+    fun getAllArticle(
+        isRefresh: Boolean,
+        pageIndex: Int,
+        keyWord: String? = null,
+        levelId: Int? = null,
+        isShare: Boolean? = false
+    ) = MutableLiveData<Resource<CommonPage<Article>>>().apply {
         value = Resource.loading()
         mUiScope.launch {
             value = try {
                 val allArticle = ArrayList<Article>()
-                if (keyWord == null && levelId == null) {
-                    if (isRefresh) {
-                        val topArticle = mApi.getHomePageTopArticle()
-                        topArticle.data?.let {
-                            it.forEach {
-                                it.isTop = true
-                            }
-                            allArticle.addAll(it)
-                        }
+                val homePageArticle: JsonResponse<CommonPage<Article>>
+                when {
+                    isShare == true -> {
+                        homePageArticle = mApi.getKnowledgeSquareArticle(pageIndex)
                     }
-                }
-                val homePageArticle = if (keyWord == null && levelId == null) {
-                    mApi.getHomePageArticle(pageIndex)
-                } else if (levelId == null){
-                    mApi.searchArticle(keyWord!!, pageIndex)
-                } else {
-                    mApi.getArticleInLevel(pageIndex, levelId)
+                    keyWord != null -> {
+                        homePageArticle = mApi.searchArticle(keyWord, pageIndex)
+                    }
+                    levelId != null -> {
+                        homePageArticle = mApi.getArticleInLevel(pageIndex, levelId)
+                    }
+                    else -> {
+                        if (isRefresh) {
+                            val topArticle = mApi.getHomePageTopArticle()
+                            topArticle.data?.let {
+                                it.forEach {
+                                    it.isTop = true
+                                }
+                                allArticle.addAll(it)
+                            }
+                        }
+                        homePageArticle = mApi.getHomePageArticle(pageIndex)
+                    }
                 }
                 homePageArticle.data?.articles?.let {
                     it.forEach {
@@ -50,6 +64,25 @@ class CommonArticleViewModel @Inject constructor(val mApi: ApiService): BaseView
                 }
                 homePageArticle.data?.articles = allArticle
                 Resource.success(homePageArticle.data)
+            } catch (e: Exception) {
+                Resource.error(e.message ?: "")
+            }
+        }
+    }
+
+    fun collectArticle(articleItem: Article) = MutableLiveData<Resource<Any>>().apply {
+        var internalArticleId: Int? = null
+        if (articleItem.isWanAndroidArticle()) {
+            val lastIndexOf = articleItem.link.lastIndexOf('/')
+            internalArticleId = articleItem.link.substring(lastIndexOf + 1).toInt()
+        }
+        mUiScope.launch {
+            value = try {
+                if (articleItem.isWanAndroidArticle()) {
+                    Resource.success(mApi.collectInternalArticle(internalArticleId!!).data)
+                } else {
+                    Resource.success(mApi.collectArticle(articleItem.title, articleItem.author, articleItem.link))
+                }
             } catch (e: Exception) {
                 Resource.error(e.message?: "")
             }

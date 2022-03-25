@@ -12,12 +12,16 @@
     <string name="search_hint">请输入关键词以检索文章</string>
     <string name="search_hottest_word_info">大家都在搜</string>
     <string name="search_input_not_empty">输入关键词不能为空或空格</string>
+    <string name="article_kind_hint">分类:%s</string>
     <string name="home_page_article_author">作者:%s</string>
-    <string name="home_page_article_sharer">分享者:%s</string>
+    <string name="home_page_article_sharer">分享人:%s</string>
     <string name="refresh_no_more_data_tip">没有更多数据</string>
     <string name="knowledge_system_toolbar_tip">知识体系</string>
     <string name="useful_website_tip">常用网站</string>
     <string name="navigation_tip">导航</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="knowledge_square_toolbar_tip">近期分享</string>
+    <string name="article_is_top_tip">置顶</string>
+    <string name="article_is_new_tip">新</string>
+    <string name="info_tip">提示</string>
+    <string name="login_expired_info">您还未登录或登录已失效,请先登录</string>
 </resources>

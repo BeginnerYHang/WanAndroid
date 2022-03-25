@@ -62,4 +62,17 @@ interface ApiService {
     suspend fun getProjects(@Path("pageIndex") pageIndex: Int,
                             @Query("cid") cid: Int,
                             @Query("page_size") pageSize: Int = 10): JsonResponse<CommonPage<Project>>
+
+    @GET("/user_article/list/{pageIndex}/json")
+    suspend fun getKnowledgeSquareArticle(@Path("pageIndex") pageIndex: Int,
+                                          @Query("page_size") pageSize: Int = 10): JsonResponse<CommonPage<Article>>
+
+    @POST("/lg/collect/{linkArticleId}/json")
+    suspend fun collectInternalArticle(@Path("linkArticleId") articleId: Int): JsonResponse<Any>
+
+    @POST("/lg/collect/add/json")
+    @FormUrlEncoded
+    suspend fun collectArticle( @Field("title") title: String,
+                                @Field("author") author: String,
+                                @Field("link") link: String ): JsonResponse<Any>
 }

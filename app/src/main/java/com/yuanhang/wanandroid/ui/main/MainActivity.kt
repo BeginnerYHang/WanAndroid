@@ -2,6 +2,7 @@ package com.yuanhang.wanandroid.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yuanhang.wanandroid.R
@@ -45,6 +46,10 @@ class MainActivity : BaseActivity() {
             tabCustomView.ivTab.setImageResource(tabIconList[position])
             tab.customView = tabCustomView
         }.attach()
+    }
+
+    override fun onBackPressed() {
+        moveTaskToBack(true)
     }
 
     companion object {

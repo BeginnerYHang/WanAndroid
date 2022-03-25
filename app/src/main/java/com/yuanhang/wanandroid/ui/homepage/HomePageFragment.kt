@@ -87,10 +87,6 @@ class HomePageFragment : BaseFragment() {
         rightIcon.onClick {
             SearchActivity.start(requireActivity() as BaseActivity)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
         getHomePageBanner()
     }
 

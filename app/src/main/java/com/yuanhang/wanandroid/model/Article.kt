@@ -5,6 +5,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import com.yuanhang.wanandroid.R
 import com.yuanhang.wanandroid.WanAndroidApplication
+import com.yuanhang.wanandroid.di.AppModule
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 
@@ -32,7 +33,7 @@ data class Article(
     val canEdit: Boolean,
     val chapterId: Int,
     val chapterName: String,
-    val collect: Boolean,
+    var collect: Boolean,
     val courseId: Int,
     val desc: String,
     val descMd: String,
@@ -67,4 +68,6 @@ data class Article(
     } else {
         WanAndroidApplication.app.getString(R.string.home_page_article_author, author)
     }
+
+    fun isWanAndroidArticle() = link.startsWith(AppModule.BASE_URL)
 }

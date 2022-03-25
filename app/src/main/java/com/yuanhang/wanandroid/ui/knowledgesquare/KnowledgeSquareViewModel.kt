@@ -8,4 +8,5 @@ import javax.inject.Inject
  * description:
  */
 class KnowledgeSquareViewModel @Inject constructor(): BaseViewModel() {
+
 }

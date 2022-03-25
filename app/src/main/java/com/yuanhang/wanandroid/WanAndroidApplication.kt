@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
+import com.yuanhang.wanandroid.base.BaseActivity
 import com.yuanhang.wanandroid.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -19,7 +20,7 @@ class WanAndroidApplication: Application(), HasAndroidInjector {
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
-    private val mActivities = ArrayList<Activity>()
+    private val mActivities = mutableListOf<Activity>()
 
     override fun androidInjector(): AndroidInjector<Any> {
         return androidInjector
@@ -61,6 +62,8 @@ class WanAndroidApplication: Application(), HasAndroidInjector {
     }
 
     fun getCurrentOpenedActivities() = mActivities
+
+    fun getCurrentTopActivity() = if (mActivities.isEmpty()) null else mActivities[mActivities.size - 1]
 
     companion object {
         lateinit var app: WanAndroidApplication

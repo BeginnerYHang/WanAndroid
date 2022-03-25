@@ -63,12 +63,28 @@
             android:src="@drawable/logout" />
     </LinearLayout>
 
+    <View
+        android:id="@+id/settingDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/qmui_config_color_gray_9"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/llLogout"/>
+    
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tvShareArticle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="子布局内容"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/knowledge_square_toolbar_tip"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        app:layout_constraintTop_toTopOf="@id/settingDivider"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvShareArticle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/tvShareArticle"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

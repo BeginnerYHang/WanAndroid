@@ -2,6 +2,7 @@ package com.yuanhang.wanandroid.di
 
 import com.yuanhang.wanandroid.api.AddCookiesInterceptor
 import com.yuanhang.wanandroid.api.ApiService
+import com.yuanhang.wanandroid.api.CustomMoshiConverterFactory
 import com.yuanhang.wanandroid.api.SaveCookiesInterceptor
 import dagger.Module
 import dagger.Provides
@@ -29,7 +30,7 @@ class AppModule {
             .build()
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(CustomMoshiConverterFactory.create())
             .client(okHttpClient)
             .build()
         return retrofit.create(ApiService::class.java)

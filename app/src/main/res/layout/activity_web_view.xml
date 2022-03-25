@@ -30,14 +30,15 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxWidth="160dp"
+        android:ellipsize="end"
+        android:maxWidth="180dp"
         android:maxLines="1"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/ivBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/ivBack"
-        tools:text="玩Android开放API"/>
+        tools:text="玩Android开放API" />
 
     <WebView
         android:id="@+id/webView"

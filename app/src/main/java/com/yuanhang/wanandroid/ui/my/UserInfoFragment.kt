@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.yuanhang.wanandroid.R
 import com.yuanhang.wanandroid.WanAndroidApplication
+import com.yuanhang.wanandroid.api.COOKIE_HEADER
 import com.yuanhang.wanandroid.api.CommonInfoStore
 import com.yuanhang.wanandroid.api.Status
 import com.yuanhang.wanandroid.base.BaseActivity
@@ -16,6 +17,7 @@ import com.yuanhang.wanandroid.base.BaseFragment
 import com.yuanhang.wanandroid.model.UserInfo
 import com.yuanhang.wanandroid.ui.common.CommonTipsDialog
 import com.yuanhang.wanandroid.ui.login.LoginActivity
+import com.yuanhang.wanandroid.util.SPUtils
 import com.yuanhang.wanandroid.util.onClick
 import kotlinx.android.synthetic.main.fragment_user_info.*
 
@@ -25,7 +27,7 @@ import kotlinx.android.synthetic.main.fragment_user_info.*
  */
 class UserInfoFragment : BaseFragment() {
 
-    lateinit var mViewModel: UserInfoViewModel
+    private lateinit var mViewModel: UserInfoViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,7 +64,8 @@ class UserInfoFragment : BaseFragment() {
                                 activity.finish()
                             }
                         }
-                        LoginActivity.start(requireActivity() as BaseActivity)
+                        SPUtils.remove(requireContext(), COOKIE_HEADER)
+                        LoginActivity.start(requireActivity() as BaseActivity, "MainActivity")
                     } else {
                         toastInform(it.message ?: "")
                     }
@@ -72,16 +75,6 @@ class UserInfoFragment : BaseFragment() {
                 }
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("???", "onStart: UserInfoFragment")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("???", "onResume: UserInfoFragment")
     }
 
     companion object {

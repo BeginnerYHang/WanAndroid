@@ -16,6 +16,7 @@ class NicknameClickSpan(val click: () -> Unit): QMUITouchableSpan(
     Color.parseColor("#00FFFFFF")
 ) {
     private var previousClickTime = 0L
+
     override fun onSpanClick(widget: View?) {
         val now = SystemClock.elapsedRealtime()
         if (now - previousClickTime < 300) {

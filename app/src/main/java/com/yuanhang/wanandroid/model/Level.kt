@@ -11,12 +11,13 @@ import kotlinx.android.parcel.Parcelize
 @JsonClass(generateAdapter = true)
 @Parcelize
 data class Level (
-    val children: List<Level>? = null,
-    val courseId: Int,
     val id: Int,
     val name: String,
-    val order: Int,
     val parentChapterId: Int,
+    var parentChapterName: String? = null,
+    val courseId: Int? = null,
+    val order: Int? = null,
+    val visible: Int? = null,
     val userControlSetTop: Boolean? = null,
-    val visible: Int
+    val children: List<Level>? = null
 ) : Parcelable

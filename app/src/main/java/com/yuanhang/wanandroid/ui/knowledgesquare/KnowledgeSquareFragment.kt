@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.yuanhang.wanandroid.R
 import com.yuanhang.wanandroid.base.BaseFragment
+import com.yuanhang.wanandroid.ui.homepage.CommonArticleFragment
 import com.yuanhang.wanandroid.ui.main.MainViewModel
 import com.yuanhang.wanandroid.util.onClick
 import kotlinx.android.synthetic.main.fragment_knowledge_square.*
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_knowledge_square.*
 class KnowledgeSquareFragment: BaseFragment() {
 
     private lateinit var mViewModel: KnowledgeSquareViewModel
+    private var mArticleFragment: CommonArticleFragment? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,15 +31,9 @@ class KnowledgeSquareFragment: BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("???", "onStart: KnowledgeSquareFragment")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("???", "onResume: KnowledgeSquareFragment")
+        if (mArticleFragment == null) {
+            childFragmentManager.beginTransaction()
+                .add(R.id.articleFragmentContainer, CommonArticleFragment.newInstance(isShare = true)).commit()
+        }
     }
 }

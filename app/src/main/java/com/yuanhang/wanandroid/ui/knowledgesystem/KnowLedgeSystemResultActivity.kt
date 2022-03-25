@@ -31,8 +31,8 @@ class KnowLedgeSystemResultActivity : BaseActivity() {
         leftIcon.onClick {
             onBackPressed()
         }
-        level?.name?.let {
-            toolBar.setMediumText(it)
+        if (level?.name != null && level?.parentChapterName != null) {
+            toolBar.setMediumText("${level?.parentChapterName}/${level?.name}")
         }
         level?.id?.let {
             supportFragmentManager.beginTransaction()

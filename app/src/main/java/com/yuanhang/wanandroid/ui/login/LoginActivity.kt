@@ -54,8 +54,12 @@ class LoginActivity : BaseActivity() {
     }
 
     companion object {
-        fun start(activity: BaseActivity) {
+
+        const val TARGET_ACTIVITY_NAME = "targetActivityName"
+
+        fun start(activity: BaseActivity, targetActivityName: String) {
             val intent = Intent(activity, LoginActivity::class.java)
+            intent.putExtra(TARGET_ACTIVITY_NAME, targetActivityName)
             activity.startActivity(intent)
         }
     }

@@ -9,73 +9,115 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
             android:id="@+id/ivIsTop"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/article_is_top_tip"
+            android:textSize="12sp"
+            android:textColor="#FF693d"
+            app:qmui_borderWidth="1dp"
+            app:qmui_borderColor="#FF693d"
+            app:qmui_radius="4dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:src="@drawable/ic_article_top"
-            android:visibility="gone"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
             android:id="@+id/ivIsNew"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/article_is_new_tip"
+            android:textSize="12sp"
+            android:textColor="#FF693d"
+            app:qmui_borderWidth="1dp"
+            app:qmui_borderColor="#FF693d"
+            app:qmui_radius="4dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
             android:layout_marginTop="8dp"
-            android:src="@drawable/ic_article_new"
-            android:visibility="gone"
+            android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivIsTop"
-            app:layout_goneMarginTop="8dp" />
+            app:layout_goneMarginStart="8dp"/>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="ivIsNew, ivIsTop"
+            app:barrierDirection="end" />
 
         <TextView
             android:id="@+id/tvArticleTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/ivIsNew"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_goneMarginStart="24dp" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/ivArticleCollect"
+            app:layout_constraintStart_toEndOf="@id/barrier"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvAuthorOrSharer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/tvArticleTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvArticleTitle" />
-
-        <TextView
+        <com.qmuiteam.qmui.widget.textview.QMUISpanTouchFixTextView
             android:id="@+id/tvKinds"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="2dp"
+            android:gravity="end"
+            app:layout_constraintEnd_toEndOf="@id/tvArticleTitle"
             app:layout_constraintStart_toStartOf="@id/tvArticleTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvAuthorOrSharer" />
+            app:layout_constraintTop_toBottomOf="@id/tvArticleTitle" />
+
+        <com.qmuiteam.qmui.widget.textview.QMUISpanTouchFixTextView
+            android:id="@+id/tvAuthorOrSharer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="2dp"
+            android:gravity="end"
+            app:layout_constraintEnd_toEndOf="@id/tvArticleTitle"
+            app:layout_constraintStart_toStartOf="@id/tvArticleTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvKinds" />
 
         <TextView
             android:id="@+id/tvTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="2dp"
+            android:gravity="end"
+            app:layout_constraintEnd_toEndOf="@id/tvArticleTitle"
             app:layout_constraintStart_toStartOf="@id/tvArticleTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvKinds" />
+            app:layout_constraintTop_toBottomOf="@id/tvAuthorOrSharer" />
+
+        <ImageView
+            android:id="@+id/ivArticleCollect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rvTags"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_collect"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTags"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toEndOf="@id/barrier"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTime" />
     </androidx.constraintlayout.widget.ConstraintLayout>

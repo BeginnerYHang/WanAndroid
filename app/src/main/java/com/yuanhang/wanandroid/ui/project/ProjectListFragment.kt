@@ -13,7 +13,9 @@ import com.yuanhang.wanandroid.api.Status
 import com.yuanhang.wanandroid.base.BaseActivity
 import com.yuanhang.wanandroid.base.BaseFragment
 import com.yuanhang.wanandroid.util.gone
+import com.yuanhang.wanandroid.util.inVisible
 import com.yuanhang.wanandroid.util.visible
+import kotlinx.android.synthetic.main.fragment_common_article.*
 import kotlinx.android.synthetic.main.fragment_project_list.*
 
 /**
@@ -66,12 +68,9 @@ class ProjectListFragment : BaseFragment() {
                             projectRefreshLayout.finishRefresh()
                         } else {
                             mProjectItemAdapter.addData(it.articles)
-                            if (it.offset + it.articles.size == it.total) {
-                                projectRefreshLayout.finishLoadMoreWithNoMoreData()
-                            } else {
-                                projectRefreshLayout.finishLoadMore()
-                            }
+                            projectRefreshLayout.finishLoadMore()
                         }
+                        projectRefreshLayout.setNoMoreData(it.offset + it.articles.size == it.total)
                     }
                 }
                 Status.ERROR -> {
@@ -90,6 +89,7 @@ class ProjectListFragment : BaseFragment() {
         mProjectItemAdapter.clearData()
         mViewModel.kindId = newKindId
         mViewModel.pageIndex = 1
+        projectRefreshLayout.closeHeaderOrFooter()
         getProjectList(true)
     }
 

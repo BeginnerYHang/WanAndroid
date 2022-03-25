@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yuanhang.wanandroid.R
 import com.yuanhang.wanandroid.api.Status
+import com.yuanhang.wanandroid.base.BaseActivity
 import com.yuanhang.wanandroid.base.BaseFragment
+import com.yuanhang.wanandroid.model.Article
 import com.yuanhang.wanandroid.ui.main.MainActivity
 import com.yuanhang.wanandroid.util.dp2px
 import com.yuanhang.wanandroid.util.gone
@@ -30,6 +32,7 @@ class CommonArticleFragment: BaseFragment() {
     private lateinit var mArticleAdapter: ArticleItemAdapter
     private var keyWord: String? = null
     private var levelId: Int? = null
+    private var isShare: Boolean? = false
     // 刷新操作需要重新请求,上拉加载不再需要
     private var isRefresh: Boolean = true
     private var pageIndex: Int = 0
@@ -44,7 +47,9 @@ class CommonArticleFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mViewModel = getViewModel(this, CommonArticleViewModel::class.java)
-        mArticleAdapter = ArticleItemAdapter(requireActivity() as MainActivity)
+        mArticleAdapter = ArticleItemAdapter(requireActivity() as BaseActivity, isShare?: false) { articleItem, position ->
+            collectArticle(articleItem, position)
+        }
         rvArticle.apply {
             layoutManager = LinearLayoutManager(this@CommonArticleFragment.requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = mArticleAdapter
@@ -56,13 +61,14 @@ class CommonArticleFragment: BaseFragment() {
                     state: RecyclerView.State
                 ) {
                     outRect.bottom = dp2px(parent.context, 6)
-                    outRect.left = dp2px(parent.context, 4)
-                    outRect.right = dp2px(parent.context, 4)
+                    outRect.left = dp2px(parent.context, 8)
+                    outRect.right = dp2px(parent.context, 8)
                 }
             })
         }
         keyWord = arguments?.get(KEYWORD) as? String
-        levelId = arguments?.get(LEVELID) as? Int
+        levelId = arguments?.get(LEVEL_ID) as? Int
+        isShare = arguments?.get(IS_SHARE) as? Boolean
         smartRefreshLayout.setOnRefreshListener {
             isRefresh = true
             pageIndex = 0
@@ -90,7 +96,7 @@ class CommonArticleFragment: BaseFragment() {
     }
 
     fun getAllArticle() {
-        mViewModel.getAllArticle(isRefresh, pageIndex, keyWord, levelId).observe(viewLifecycleOwner) {
+        mViewModel.getAllArticle(isRefresh, pageIndex, keyWord, levelId, isShare).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let {
@@ -104,13 +110,9 @@ class CommonArticleFragment: BaseFragment() {
                             smartRefreshLayout.finishRefresh(true)
                         } else {
                             mArticleAdapter.addData(it.articles)
-                            if (pageIndex + 1 >= it.pageCount) {
-                                smartRefreshLayout.finishLoadMoreWithNoMoreData()
-                            }else {
-                                smartRefreshLayout.finishLoadMore(true)
-                            }
-
+                            smartRefreshLayout.finishLoadMore()
                         }
+                        smartRefreshLayout.setNoMoreData(pageIndex + 1 >= it.pageCount)
                     }
                 }
                 Status.LOADING -> {
@@ -128,14 +130,30 @@ class CommonArticleFragment: BaseFragment() {
         }
     }
 
+    fun collectArticle(articleItem: Article, position: Int) {
+        mViewModel.collectArticle(articleItem).observe(viewLifecycleOwner){
+            when(it.status) {
+                Status.SUCCESS -> {
+                    articleItem.collect = true
+                    mArticleAdapter.notifyItemChanged(position)
+                }
+                Status.ERROR -> {
+                    toastInform(it.message?: "")
+                }
+            }
+        }
+    }
+
     companion object{
 
         const val KEYWORD = "keyWord"
-        const val LEVELID = "levelId"
+        const val LEVEL_ID = "levelId"
+        //广场全部为分享文章(标识是否来自广场)
+        const val IS_SHARE = "isShare"
 
-        fun newInstance(keyWord: String? = null, levelId: Int? = null): CommonArticleFragment {
+        fun newInstance(keyWord: String? = null, levelId: Int? = null, isShare: Boolean = false): CommonArticleFragment {
             return CommonArticleFragment().apply {
-                arguments = bundleOf(KEYWORD to keyWord, LEVELID to levelId)
+                arguments = bundleOf(KEYWORD to keyWord, LEVEL_ID to levelId, IS_SHARE to isShare)
             }
         }
     }

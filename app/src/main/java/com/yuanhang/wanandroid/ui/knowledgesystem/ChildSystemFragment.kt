@@ -44,6 +44,13 @@ class ChildSystemFragment: BaseFragment() {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let {
+                        it.forEach {
+                            if (it.children != null) {
+                                it.children.forEach { level ->
+                                    level.parentChapterName = it.name
+                                }
+                            }
+                        }
                         mKnowledgeLevelAdapter.setData(it)
                     }
                 }
