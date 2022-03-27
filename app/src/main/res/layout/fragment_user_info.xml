@@ -67,24 +67,46 @@
         android:id="@+id/settingDivider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/qmui_config_color_gray_9"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/llLogout"/>
-    
-    <TextView
-        android:id="@+id/tvShareArticle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/knowledge_square_toolbar_tip"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        app:layout_constraintTop_toTopOf="@id/settingDivider"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"/>
+        android:background="@color/qmui_config_color_gray_9"
+        app:layout_constraintTop_toBottomOf="@id/llLogout" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvShareArticle"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tvShareArticle"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+    <LinearLayout
+        android:id="@+id/llLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_expired_info"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/go_to_login_info"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/white"
+            app:qmui_backgroundColor="@color/teal_200"
+            app:qmui_radius="6dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"/>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/userInfoGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="flUserInfo, llLogout, settingDivider"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

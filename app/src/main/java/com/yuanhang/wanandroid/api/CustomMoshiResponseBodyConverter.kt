@@ -49,7 +49,8 @@ internal class CustomMoshiResponseBodyConverter<T>(private val adapter: JsonAdap
                                         SPUtils.remove(it, SPUtils.KEY.LOGIN_INFO)
                                         CommonInfoStore.loginInfo = null
                                         LoginActivity.start(it, it.localClassName)
-                                    }).show()
+                                    },
+                                    it.getString(R.string.dialog_cancel),).show()
                             }
                         }
                     }

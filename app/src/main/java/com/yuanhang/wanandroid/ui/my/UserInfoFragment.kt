@@ -1,12 +1,10 @@
 package com.yuanhang.wanandroid.ui.my
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import com.yuanhang.wanandroid.R
 import com.yuanhang.wanandroid.WanAndroidApplication
 import com.yuanhang.wanandroid.api.COOKIE_HEADER
@@ -14,7 +12,6 @@ import com.yuanhang.wanandroid.api.CommonInfoStore
 import com.yuanhang.wanandroid.api.Status
 import com.yuanhang.wanandroid.base.BaseActivity
 import com.yuanhang.wanandroid.base.BaseFragment
-import com.yuanhang.wanandroid.model.UserInfo
 import com.yuanhang.wanandroid.ui.common.CommonTipsDialog
 import com.yuanhang.wanandroid.ui.login.LoginActivity
 import com.yuanhang.wanandroid.util.SPUtils

@@ -24,4 +24,5 @@
     <string name="article_is_new_tip">新</string>
     <string name="info_tip">提示</string>
     <string name="login_expired_info">您还未登录或登录已失效,请先登录</string>
+    <string name="go_to_login_info">去登录</string>
 </resources>
