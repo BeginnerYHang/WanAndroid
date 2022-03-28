@@ -13,6 +13,12 @@ import kotlinx.android.parcel.RawValue
  * created by yuanhang on 2022/2/21
  * description:
  */
+@JsonClass(generateAdapter = true)
+data class ShareArticleList(
+    val coinInfo: CoinInfo,
+    val shareArticles: CommonPage<Article>
+)
+
 
 @JsonClass(generateAdapter = true)
 data class CommonPage<T>(
@@ -68,6 +74,4 @@ data class Article(
     } else {
         WanAndroidApplication.app.getString(R.string.home_page_article_author, author)
     }
-
-    fun isWanAndroidArticle() = link.startsWith(AppModule.BASE_URL)
 }

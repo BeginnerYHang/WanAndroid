@@ -26,13 +26,14 @@ import kotlinx.android.synthetic.main.fragment_common_article.*
  * created by yuanhang on 2022/3/2
  * description: 由于搜索列表和首页文章列表相同,因此封装为统一的Fragment
  */
-class CommonArticleFragment: BaseFragment() {
+class CommonArticleFragment : BaseFragment() {
 
     private lateinit var mViewModel: CommonArticleViewModel
     private lateinit var mArticleAdapter: ArticleItemAdapter
     private var keyWord: String? = null
     private var levelId: Int? = null
     private var isShare: Boolean? = false
+
     // 刷新操作需要重新请求,上拉加载不再需要
     private var isRefresh: Boolean = true
     private var pageIndex: Int = 0
@@ -47,11 +48,22 @@ class CommonArticleFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mViewModel = getViewModel(this, CommonArticleViewModel::class.java)
-        mArticleAdapter = ArticleItemAdapter(requireActivity() as BaseActivity, isShare?: false) { articleItem, position ->
-            collectArticle(articleItem, position)
+        mArticleAdapter = ArticleItemAdapter(
+            requireActivity() as BaseActivity,
+            isShare ?: false
+        ) { articleItem, position ->
+            if (articleItem.collect) {
+                unCollectArticle(articleItem, position)
+            } else {
+                collectArticle(articleItem, position)
+            }
         }
         rvArticle.apply {
-            layoutManager = LinearLayoutManager(this@CommonArticleFragment.requireContext(), LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(
+                this@CommonArticleFragment.requireContext(),
+                LinearLayoutManager.VERTICAL,
+                false
+            )
             adapter = mArticleAdapter
             addItemDecoration(object : RecyclerView.ItemDecoration() {
                 override fun getItemOffsets(
@@ -136,6 +148,7 @@ class CommonArticleFragment: BaseFragment() {
                 Status.SUCCESS -> {
                     articleItem.collect = true
                     mArticleAdapter.notifyItemChanged(position)
+                    toastSuccess(getString(R.string.collect_article_success_info))
                 }
                 Status.ERROR -> {
                     toastInform(it.message?: "")
@@ -144,7 +157,22 @@ class CommonArticleFragment: BaseFragment() {
         }
     }
 
-    companion object{
+    fun unCollectArticle(articleItem: Article, position: Int) {
+        mViewModel.unCollectArticle(articleItem).observe(viewLifecycleOwner){
+            when(it.status) {
+                Status.SUCCESS -> {
+                    articleItem.collect = false
+                    mArticleAdapter.notifyItemChanged(position)
+                    toastSuccess(getString(R.string.uncollect_article_success_info))
+                }
+                Status.ERROR -> {
+                    toastInform(it.message?: "")
+                }
+            }
+        }
+    }
+
+    companion object {
 
         const val KEYWORD = "keyWord"
         const val LEVEL_ID = "levelId"

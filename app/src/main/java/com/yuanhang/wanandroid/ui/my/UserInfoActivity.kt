@@ -7,7 +7,7 @@ import com.yuanhang.wanandroid.R
 import com.yuanhang.wanandroid.base.BaseActivity
 
 
-class UserInfoActivity : AppCompatActivity() {
+class UserInfoActivity : BaseActivity() {
 
     private var userId: Int? = null
 
@@ -17,7 +17,7 @@ class UserInfoActivity : AppCompatActivity() {
         userId = intent.getIntExtra(UserInfoFragment.USER_ID, 0)
         userId?.let {
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, UserInfoFragment.newInstance(it))
+                .add(R.id.fragmentContainer, UserInfoFragment.newInstance(it)).commit()
         }
     }
 

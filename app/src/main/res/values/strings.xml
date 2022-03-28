@@ -25,4 +25,7 @@
     <string name="info_tip">提示</string>
     <string name="login_expired_info">您还未登录或登录已失效,请先登录</string>
     <string name="go_to_login_info">去登录</string>
+    <string name="myself_share_list_empty_info">您还没分享过文章,点击分享一下吧</string>
+    <string name="collect_article_success_info">收藏成功</string>
+    <string name="uncollect_article_success_info">取消收藏成功</string>
 </resources>

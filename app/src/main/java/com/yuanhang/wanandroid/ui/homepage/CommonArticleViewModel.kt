@@ -71,18 +71,19 @@ class CommonArticleViewModel @Inject constructor(val mApi: ApiService) : BaseVie
     }
 
     fun collectArticle(articleItem: Article) = MutableLiveData<Resource<Any>>().apply {
-        var internalArticleId: Int? = null
-        if (articleItem.isWanAndroidArticle()) {
-            val lastIndexOf = articleItem.link.lastIndexOf('/')
-            internalArticleId = articleItem.link.substring(lastIndexOf + 1).toInt()
-        }
         mUiScope.launch {
             value = try {
-                if (articleItem.isWanAndroidArticle()) {
-                    Resource.success(mApi.collectInternalArticle(internalArticleId!!).data)
-                } else {
-                    Resource.success(mApi.collectArticle(articleItem.title, articleItem.author, articleItem.link))
-                }
+                Resource.success(mApi.collectInternalArticle(articleItem.id).data)
+            } catch (e: Exception) {
+                Resource.error(e.message?: "")
+            }
+        }
+    }
+
+    fun unCollectArticle(articleItem: Article) = MutableLiveData<Resource<Any>>().apply {
+        mUiScope.launch {
+            value = try {
+                Resource.success(mApi.unCollectInternalArticle(articleItem.id).data)
             } catch (e: Exception) {
                 Resource.error(e.message?: "")
             }

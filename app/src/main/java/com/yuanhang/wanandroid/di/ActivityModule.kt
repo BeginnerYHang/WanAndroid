@@ -4,6 +4,7 @@ import com.yuanhang.wanandroid.ui.main.MainActivity
 import com.yuanhang.wanandroid.base.BaseActivity
 import com.yuanhang.wanandroid.ui.knowledgesystem.KnowLedgeSystemResultActivity
 import com.yuanhang.wanandroid.ui.login.LoginActivity
+import com.yuanhang.wanandroid.ui.my.UserInfoActivity
 import com.yuanhang.wanandroid.ui.search.SearchActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -29,4 +30,7 @@ internal abstract class ActivityModule {
 
     @ContributesAndroidInjector
     internal abstract fun knowledgeSystemResultActivityInjector(): KnowLedgeSystemResultActivity
+
+    @ContributesAndroidInjector
+    internal abstract fun userInfoActivityInjector(): UserInfoActivity
 }

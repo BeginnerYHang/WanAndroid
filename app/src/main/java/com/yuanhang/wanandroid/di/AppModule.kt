@@ -4,11 +4,11 @@ import com.yuanhang.wanandroid.api.AddCookiesInterceptor
 import com.yuanhang.wanandroid.api.ApiService
 import com.yuanhang.wanandroid.api.CustomMoshiConverterFactory
 import com.yuanhang.wanandroid.api.SaveCookiesInterceptor
+import com.yuanhang.wanandroid.util.LoggingInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -27,6 +27,7 @@ class AppModule {
             .readTimeout(20, TimeUnit.SECONDS)
             .addInterceptor(AddCookiesInterceptor())
             .addInterceptor(SaveCookiesInterceptor())
+            .addInterceptor(LoggingInterceptor())
             .build()
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)

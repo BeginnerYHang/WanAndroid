@@ -32,8 +32,9 @@ class KnowledgeSquareFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if (mArticleFragment == null) {
+            mArticleFragment = CommonArticleFragment.newInstance(isShare = true)
             childFragmentManager.beginTransaction()
-                .add(R.id.articleFragmentContainer, CommonArticleFragment.newInstance(isShare = true)).commit()
+                .add(R.id.articleFragmentContainer, mArticleFragment!!).commit()
         }
     }
 }

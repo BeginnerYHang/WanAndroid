@@ -16,6 +16,7 @@ import com.yuanhang.wanandroid.model.Article
 import com.yuanhang.wanandroid.model.Level
 import com.yuanhang.wanandroid.ui.common.NicknameClickSpan
 import com.yuanhang.wanandroid.ui.knowledgesystem.KnowLedgeSystemResultActivity
+import com.yuanhang.wanandroid.ui.my.UserInfoActivity
 import com.yuanhang.wanandroid.util.gone
 import com.yuanhang.wanandroid.util.onClick
 import kotlinx.android.extensions.LayoutContainer
@@ -27,7 +28,7 @@ import kotlinx.android.synthetic.main.item_article.view.*
  */
 class ArticleItemAdapter(private val context: BaseActivity,
                          val isShare: Boolean = false,
-                         val collectArticleClick: (Article, Int) -> Unit) : RecyclerView.Adapter<ArticleItemAdapter.ArticleViewHolder>() {
+                         val collectArticleClick: ((Article, Int) -> Unit)) : RecyclerView.Adapter<ArticleItemAdapter.ArticleViewHolder>() {
 
     private val mArticles = ArrayList<Article>()
 
@@ -86,9 +87,12 @@ class ArticleItemAdapter(private val context: BaseActivity,
                     context.getString(R.string.home_page_article_author, articleItem.author)
                 }
                 val spannable = SpannableString(authorTip)
-                spannable.setSpan(NicknameClickSpan(){
-
-                }, spanStart, spanEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                if (articleItem.userId > 0) {
+                    spannable.setSpan(NicknameClickSpan(){
+                        UserInfoActivity.startActivity(context, articleItem.userId)
+                    }, spanStart, spanEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    containerView.tvAuthorOrSharer.setMovementMethodDefault()
+                }
                 containerView.tvAuthorOrSharer.text = spannable
             }
             if (isShare && articleItem.superChapterName.isBlank() && articleItem.chapterName.isBlank()) {
@@ -114,6 +118,10 @@ class ArticleItemAdapter(private val context: BaseActivity,
                 containerView.rvTags.apply {
                     layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
                     adapter = tagAdapter
+                }
+            } else {
+                containerView.rvTags.apply {
+                    adapter = null
                 }
             }
             if (articleItem.collect) {
