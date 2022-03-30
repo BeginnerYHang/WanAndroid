@@ -85,4 +85,11 @@ interface ApiService {
 
     @GET("/user/lg/private_articles/{pageIndex}/json")
     suspend fun getMySelfShareArticle( @Path("pageIndex") pageIndex: Int): JsonResponse<ShareArticleList>
+
+    @POST("/lg/user_article/add/json")
+    @FormUrlEncoded
+    suspend fun shareArticle(
+        @Field("title") articleTitle: String,
+        @Field("link") articleLink: String
+    ): JsonResponse<Any>
 }

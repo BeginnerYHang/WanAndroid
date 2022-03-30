@@ -35,6 +35,16 @@ class UserInfoViewModel @Inject constructor(private val mApi: ApiService): BaseV
         }
     }
 
+    fun shareArticle(articleTitle: String, articleLink: String) = MutableLiveData<Resource<Any>>().apply {
+        mUiScope.launch {
+            value = try {
+                Resource.success(mApi.shareArticle(articleTitle, articleLink).data)
+            }catch (e: Exception) {
+                Resource.error(e.message?: "")
+            }
+        }
+    }
+
     fun logout() = MutableLiveData<Resource<Any>>().apply {
         value = Resource.loading()
         mUiScope.launch {

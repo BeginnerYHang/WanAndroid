@@ -4,48 +4,107 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/flUserInfo"
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        android:id="@+id/avatar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="36dp"
+        android:src="@drawable/default_avatar"
+        app:layout_constraintEnd_toStartOf="@id/tvCoinCount"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:qmui_is_circle="true" />
+
+    <TextView
+        android:id="@+id/nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/avatar"
+        app:layout_constraintStart_toStartOf="@id/avatar"
+        app:layout_constraintEnd_toEndOf="@id/avatar"/>
+
+
+    <com.qmuiteam.qmui.widget.textview.QMUISpanTouchFixTextView
+        android:id="@+id/tvCoinCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:drawablePadding="2dp"
+        app:drawableStartCompat="@drawable/coin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/avatar"
+        app:layout_constraintTop_toTopOf="@id/avatar"/>
+
+    <TextView
+        android:id="@+id/tvLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:drawablePadding="2dp"
+        app:layout_constraintTop_toBottomOf="@id/tvCoinCount"
+        app:layout_constraintStart_toStartOf="@id/tvCoinCount"
+        app:drawableStartCompat="@drawable/level" />
+
+    <TextView
+        android:id="@+id/tvRank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvLevel"
+        app:layout_constraintStart_toStartOf="@id/tvLevel"
+        android:layout_marginTop="4dp"
+        android:drawablePadding="2dp"
+        app:drawableStartCompat="@drawable/rank" />
+
+
+    <LinearLayout
+        android:id="@+id/llCollection"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-            android:id="@+id/avatar"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center"
-            android:src="@color/teal_200"
-            app:qmui_is_circle="true" />
+        app:layout_constraintTop_toBottomOf="@id/nickname">
 
         <TextView
-            android:id="@+id/nickname"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvCollection"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="25dp"
-            android:text="yuan hang" />
+            android:layout_weight="1"
+            android:text="@string/my_collection_article"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
-        <TextView
-            android:id="@+id/address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:text="1139050614@qq.com" />
-    </FrameLayout>
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="end"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/settingCollectDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/qmui_config_color_gray_9"
+        app:layout_constraintTop_toBottomOf="@id/llCollection" />
 
     <LinearLayout
         android:id="@+id/llLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="8dp"
         android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/flUserInfo">
+        app:layout_constraintTop_toBottomOf="@id/settingCollectDivider">
 
         <TextView
             android:layout_width="0dp"
@@ -64,10 +123,10 @@
     </LinearLayout>
 
     <View
-        android:id="@+id/settingDivider"
+        android:id="@+id/settingLogoutDivider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="@color/qmui_config_color_gray_9"
         app:layout_constraintTop_toBottomOf="@id/llLogout" />
 
@@ -80,22 +139,21 @@
         android:text="@string/knowledge_square_toolbar_tip"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settingDivider" />
+        app:layout_constraintTop_toBottomOf="@id/settingLogoutDivider" />
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/shareRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvRecentlyShare"
         app:srlEnableFooterFollowWhenLoadFinished="true">
 
         <com.scwang.smart.refresh.header.ClassicsHeader
             android:id="@+id/refreshLayoutHeader"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvShareArticle"
@@ -108,7 +166,7 @@
             android:layout_height="wrap_content" />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
-    <TextView
+    <com.qmuiteam.qmui.widget.textview.QMUISpanTouchFixTextView
         android:id="@+id/userInfoShareEmptyHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -123,5 +181,5 @@
         android:id="@+id/userInfoGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="llLogout, settingDivider" />
+        app:constraint_referenced_ids="llLogout, settingLogoutDivider" />
 </androidx.constraintlayout.widget.ConstraintLayout>

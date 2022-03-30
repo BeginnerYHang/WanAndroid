@@ -28,4 +28,14 @@
     <string name="myself_share_list_empty_info">您还没分享过文章,点击分享一下吧</string>
     <string name="collect_article_success_info">收藏成功</string>
     <string name="uncollect_article_success_info">取消收藏成功</string>
+    <string name="my_collection_article">我的收藏</string>
+    <string name="his_collection_article">他的收藏</string>
+    <string name="coin_info">积分:%s(明细)</string>
+    <string name="level_info">等级:%s</string>
+    <string name="rank_info">排名:%s</string>
+    <string name="share_article_title">文章标题(100字以内)</string>
+    <string name="share_article_link">文章链接</string>
+    <string name="share_article_user">分享人:%s</string>
+    <string name="share_article">分享</string>
+    <string name="share_article_success">分享成功</string>
 </resources>

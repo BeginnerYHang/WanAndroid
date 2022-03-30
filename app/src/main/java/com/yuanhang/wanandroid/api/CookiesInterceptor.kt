@@ -1,10 +1,6 @@
 package com.yuanhang.wanandroid.api
 
-import com.yuanhang.wanandroid.R
 import com.yuanhang.wanandroid.WanAndroidApplication
-import com.yuanhang.wanandroid.base.BaseActivity
-import com.yuanhang.wanandroid.ui.common.CommonTipsDialog
-import com.yuanhang.wanandroid.ui.login.LoginActivity
 import com.yuanhang.wanandroid.util.SPUtils
 import okhttp3.Interceptor
 import okhttp3.Response

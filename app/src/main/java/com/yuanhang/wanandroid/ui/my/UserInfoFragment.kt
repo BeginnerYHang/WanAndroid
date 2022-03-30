@@ -18,7 +18,9 @@ import com.yuanhang.wanandroid.api.CommonInfoStore
 import com.yuanhang.wanandroid.api.Status
 import com.yuanhang.wanandroid.base.BaseActivity
 import com.yuanhang.wanandroid.base.BaseFragment
+import com.yuanhang.wanandroid.model.CoinInfo
 import com.yuanhang.wanandroid.ui.common.CommonTipsDialog
+import com.yuanhang.wanandroid.ui.common.FormTipsDialog
 import com.yuanhang.wanandroid.ui.common.NicknameClickSpan
 import com.yuanhang.wanandroid.ui.homepage.ArticleItemAdapter
 import com.yuanhang.wanandroid.ui.login.LoginActivity
@@ -46,6 +48,11 @@ class UserInfoFragment : BaseFragment() {
         mViewModel = getViewModel(this, UserInfoViewModel::class.java)
         mViewModel.userId = arguments?.get(USER_ID) as? Int?: CommonInfoStore.getUserId()
         mViewModel.isGuest = CommonInfoStore.getUserId() != mViewModel.userId
+        tvCollection.text = if (mViewModel.isGuest) getString(R.string.his_collection_article)
+                            else getString(R.string.my_collection_article)
+        tvCollection.onClick {
+            //TODO:跳转到我的收藏页面
+        }
         llLogout.onClick {
             CommonTipsDialog(
                 requireActivity() as BaseActivity,
@@ -79,8 +86,9 @@ class UserInfoFragment : BaseFragment() {
         val shareEmptySpannable = SpannableString(shareEmptyInfo)
         val startPosition = shareEmptyInfo.lastIndexOf("分享")
         shareEmptySpannable.setSpan(NicknameClickSpan(){
-           //Todo:去分享
+            showFormTipsDialog()
         } ,startPosition, startPosition + 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        userInfoShareEmptyHint.setMovementMethodDefault()
         userInfoShareEmptyHint.text = shareEmptySpannable
         userInfoGroup.isVisible = !mViewModel.isGuest
         getShareArticleList(true)
@@ -103,6 +111,9 @@ class UserInfoFragment : BaseFragment() {
                         if (isRefresh) {
                             mViewModel.pageIndex = 1
                             shareRefreshLayout.finishRefresh()
+                            it.data?.coinInfo?.let {
+                                setUpCoinInfoView(it)
+                            }
                             it.data?.shareArticles?.articles?.let {
                                 if (it.isEmpty()) {
                                     if (mViewModel.isGuest) {
@@ -134,6 +145,21 @@ class UserInfoFragment : BaseFragment() {
         }
     }
 
+    fun setUpCoinInfoView(coinInfo: CoinInfo) {
+        nickname.text = coinInfo.nickname
+        val coinSpannable = SpannableString(getString(R.string.coin_info, coinInfo.coinCount.toString()))
+        val spannableStartPosition = coinSpannable.indexOfFirst {
+            it == '('
+        }
+        coinSpannable.setSpan(NicknameClickSpan(){
+            //Todo:跳转到积分明细页面
+        }, spannableStartPosition + 1, spannableStartPosition + 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        tvCoinCount.setMovementMethodDefault()
+        tvCoinCount.text = coinSpannable
+        tvLevel.text = getString(R.string.level_info, coinInfo.level.toString())
+        tvRank.text = getString(R.string.rank_info, coinInfo.rank)
+    }
+
     fun logout() {
         mViewModel.logout().observe(viewLifecycleOwner) {
             when (it.status) {
@@ -156,6 +182,21 @@ class UserInfoFragment : BaseFragment() {
                 }
             }
         }
+    }
+
+    private fun showFormTipsDialog() {
+        FormTipsDialog(requireContext(), { title, link ->
+            mViewModel.shareArticle(title, link).observe(viewLifecycleOwner) {
+                when(it.status) {
+                    Status.SUCCESS -> {
+                        toastSuccess(getString(R.string.share_article_success))
+                    }
+                    Status.ERROR -> {
+                        toastInform(it.message?: "")
+                    }
+                }
+            }
+        }).show()
     }
 
     companion object {
